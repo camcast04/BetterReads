@@ -1,4 +1,14 @@
+
+<div id="header" align="center">
+
+#### [![LinkedIn Badge](https://img.shields.io/badge/-@CamilaCastaneda-blue?style=flat&logo=Linkedin&logoColor=black)](https://www.linkedin.com/in/camila-d-castaneda/) [![LinkedIn Badge](https://img.shields.io/badge/-@SophiaBanda-blue?style=flat&logo=Linkedin&logoColor=black)](https://www.linkedin.com/in/sophia-banda/) [![LinkedIn Badge](https://img.shields.io/badge/-@JoseGalvez-blue?style=flat&logo=Linkedin&logoColor=black)](https://www.linkedin.com/in/josegalvez-h)
+
+</div>
+
+  <div id="description" align="center">
+  
 # BetterReads
+</div>
 
 ## Introduction
 [BetterReads]() is a social platform, geared towards book-lovers, created with Node.js, Express, MongoDB, React, and Mongoose. This platform allows users to login and create lists of their favorite books, books they did not finish, and books to read. Users can review books, provide ratings, and comment on each other’s reviews.
