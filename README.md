@@ -16,14 +16,14 @@
 
 ## Screenshots
 
-### Home Page
+<!-- ### Home Page
 ![Home Page BetterReads](./images/home.png)
 ### Book List
 ![Book List BetterReads](./images/book-list.png)
 ### Review Page
 ![Review Page BetterReads](./images/review.png)
 ### Comments
-![Comments BetterReads](./images/comments.png)
+![Comments BetterReads](./images/comments.png) -->
 
 ## Enhanced Features
 ### Integration with External Book APIs
