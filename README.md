@@ -5,15 +5,15 @@
 
 </div>
 
-  <div id="description" align="center">
-  
-# BetterReads
+  <div id="title" align="center">
+
+# 📚 BetterReads 📖
 </div>
 
 ## Introduction
 [BetterReads]() is a social platform, geared towards book-lovers, created with Node.js, Express, MongoDB, React, and Mongoose. This platform allows users to login and create lists of their favorite books, books they did not finish, and books to read. Users can review books, provide ratings, and comment on each other’s reviews.
 
-## Technology Stack
+## 💾 Technology Stack
 - **Backend**: Node.js, Express, API
 - **Database**: MongoDB, Mongoose
 - **Frontend**: React
@@ -24,7 +24,7 @@
 - **Reviews and Ratings**: Users can review books and provide ratings, sharing their opinions with the community.
 - **Comments**: Users can comment on each other's reviews, fostering discussions and interactions.
 
-## Screenshots
+## 📸 Screenshots
 
 <!-- ### Home Page
 ![Home Page BetterReads](./images/home.png)
@@ -42,7 +42,7 @@
 - **Cover Images and Metadata**: Enhance book lists and reviews with cover images and additional metadata.
 - **User-Generated Lists**: Explore lists created by other users with similar interests.
 
-## Planned Enhancements
+## 📝 Planned Enhancements
 
 ### Personalized Recommendations
 
