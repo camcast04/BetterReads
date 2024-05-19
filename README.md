@@ -1,7 +1,7 @@
 # BetterReads
 
 ## Introduction
-[BetterReads]() is a social platform, geared towards book-lovers, created with Node.js, Express, MongoDB, React, and Mongoose. This platform allows users to login and create lists of their favorite books, books they did not finish, and books to read. Users can review books and provide ratings, and comment on each other’s reviews.
+[BetterReads]() is a social platform, geared towards book-lovers, created with Node.js, Express, MongoDB, React, and Mongoose. This platform allows users to login and create lists of their favorite books, books they did not finish, and books to read. Users can review books, provide ratings, and comment on each other’s reviews.
 
 ## Technology Stack
 - **Backend**: Node.js, Express, API
