@@ -1,21 +1,51 @@
 import { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 // import { Routes, Route } from 'react-router-dom';
 import { getUser } from '../../utilities/users-service';
 import './App.css';
 import AuthPage from '../AuthPage/AuthPage';
 import NavBar from '../../components/NavBar/NavBar';
-
+import HomePage from '../HomePage/HomePage';
+import BookDetailsPage from '../BookDetailsPage/BookDetailsPage';
+import BookListsPage from '../BookListsPage';
+import ProfilePage from '../ProfilePage';
+import LandingPage from '../LandingPage';
 
 export default function App() {
   const [user, setUser] = useState(getUser());
   const [books, setBooks] = useState([]);
   const [query, setQuery] = useState('');
 
+  <Router>
+    <Routes>
+      <Route
+        path="/"
+        element={<HomePage />}
+      />
+      <Route
+        path="/"
+        element={<LandingPage />}
+      />
+      <Route
+        path="/profile/:username"
+        element={<ProfilePage />}
+      />
+      <Route
+        path="/book/:bookId"
+        element={<BookDetailsPage />}
+      />
+      <Route
+        path="/book-list/:listId"
+        element={<BookListsPage />}
+      />
+    </Routes>
+  </Router>;
+
   const searchBooks = async () => {
     try {
       const response = await axios.get(`/api/books?q=${query}`);
-      console.log('Response data:', response.data); 
+      console.log('Response data:', response.data);
       if (response.data.items) {
         setBooks(response.data.items);
       } else {
@@ -27,12 +57,14 @@ export default function App() {
     }
   };
 
-
   return (
     <main className="App">
-      {user ?
+      {user ? (
         <>
-          <NavBar user={user} setUser={setUser} />
+          <NavBar
+            user={user}
+            setUser={setUser}
+          />
           {/* <Routes>
             </Routes> */}
           <div>
@@ -49,7 +81,10 @@ export default function App() {
                 books.map((book) => (
                   <div key={book.id}>
                     <h2>{book.volumeInfo.title}</h2>
-                    <p>{book.volumeInfo.authors && book.volumeInfo.authors.join(', ')}</p>
+                    <p>
+                      {book.volumeInfo.authors &&
+                        book.volumeInfo.authors.join(', ')}
+                    </p>
                     <p>{book.volumeInfo.description}</p>
                   </div>
                 ))
@@ -59,9 +94,9 @@ export default function App() {
             </div>
           </div>
         </>
-        :
+      ) : (
         <AuthPage setUser={setUser} />
-      }
+      )}
     </main>
   );
 }
