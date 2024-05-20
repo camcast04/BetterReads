@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
-// import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { getUser } from '../../utilities/users-service';
 import './App.css';
 import AuthPage from '../AuthPage/AuthPage';
@@ -16,31 +15,6 @@ export default function App() {
   const [user, setUser] = useState(getUser());
   const [books, setBooks] = useState([]);
   const [query, setQuery] = useState('');
-
-  <Router>
-    <Routes>
-      <Route
-        path="/"
-        element={<HomePage />}
-      />
-      <Route
-        path="/"
-        element={<LandingPage />}
-      />
-      <Route
-        path="/profile/:username"
-        element={<ProfilePage />}
-      />
-      <Route
-        path="/book/:bookId"
-        element={<BookDetailsPage />}
-      />
-      <Route
-        path="/book-list/:listId"
-        element={<BookListsPage />}
-      />
-    </Routes>
-  </Router>;
 
   const searchBooks = async () => {
     try {
@@ -65,8 +39,30 @@ export default function App() {
             user={user}
             setUser={setUser}
           />
-          {/* <Routes>
-            </Routes> */}
+          {
+            <Routes>
+              <Route
+                path="/"
+                element={<HomePage />}
+              />
+              <Route
+                path="/"
+                element={<LandingPage />}
+              />
+              <Route
+                path="/profile/:username"
+                element={<ProfilePage />}
+              />
+              <Route
+                path="/book/:bookId"
+                element={<BookDetailsPage />}
+              />
+              <Route
+                path="/book-list/:listId"
+                element={<BookListsPage />}
+              />
+            </Routes>
+          }
           <div>
             <h1>Book Search</h1>
             <input
