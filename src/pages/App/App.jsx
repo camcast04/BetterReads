@@ -51,7 +51,7 @@ return (
               element={<HomePage />}
             />
             <Route
-              path="/"
+              path="/landing"
               element={<LandingPage />}
             />
             <Route
