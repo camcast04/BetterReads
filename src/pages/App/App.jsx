@@ -16,34 +16,34 @@ export default function App() {
   const [books, setBooks] = useState([]);
   const [query, setQuery] = useState('');
 
-  // const searchBooks = async () => {
-  //   try {
-  //     const token = localStorage.getItem('token'); 
-  //     const response = await axios.get(`/api/books?q=${query}`, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}` 
-  //       }
-  //     });
-  //     console.log('Response data:', response.data);
-  //     if (response.data.items) {
-  //       setBooks(response.data.items);
-  //     } else {
-  //       console.log('No items found in response');
-  //       setBooks([]);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error fetching data:', error);
-  //   }
-  // };
+  const searchBooks = async () => {
+    try {
+      const token = localStorage.getItem('token'); 
+      const response = await axios.get(`/api/books?q=${query}`, {
+        headers: {
+          Authorization: `Bearer ${token}` 
+        }
+      });
+      console.log('Response data:', response.data);
+      if (response.data.items) {
+        setBooks(response.data.items);
+      } else {
+        console.log('No items found in response');
+        setBooks([]);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
 return (
   <main className="App">
     {user ? (
       <>
-        {/* <NavBar
+        <NavBar
           user={user}
           setUser={setUser}
-        /> */}
+        />
         {
           <Routes>
             <Route
@@ -51,7 +51,7 @@ return (
               element={<HomePage />}
             />
             <Route
-              path="/"
+              path="/landing"
               element={<LandingPage />}
             />
             <Route
