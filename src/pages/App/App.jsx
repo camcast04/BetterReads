@@ -7,9 +7,9 @@ import AuthPage from '../AuthPage/AuthPage';
 import NavBar from '../../components/NavBar/NavBar';
 import HomePage from '../HomePage/HomePage';
 import BookDetailsPage from '../BookDetailsPage/BookDetailsPage';
-import BookListsPage from '../BookListsPage';
-import ProfilePage from '../ProfilePage';
-import LandingPage from '../LandingPage';
+import BookListsPage from '../BookListsPage/BookListsPage';
+import ProfilePage from '../ProfilePage/ProfilePage';
+import LandingPage from '../LandingPage/LandingPage';
 
 export default function App() {
   const [user, setUser] = useState(getUser());
@@ -18,7 +18,12 @@ export default function App() {
 
   const searchBooks = async () => {
     try {
-      const response = await axios.get(`/api/books?q=${query}`);
+      const token = localStorage.getItem('token'); 
+      const response = await axios.get(`/api/books?q=${query}`, {
+        headers: {
+          Authorization: `Bearer ${token}` 
+        }
+      });
       console.log('Response data:', response.data);
       if (response.data.items) {
         setBooks(response.data.items);
@@ -31,68 +36,68 @@ export default function App() {
     }
   };
 
-  return (
-    <main className="App">
-      {user ? (
-        <>
-          <NavBar
-            user={user}
-            setUser={setUser}
-          />
-          {
-            <Routes>
-              <Route
-                path="/"
-                element={<HomePage />}
-              />
-              <Route
-                path="/"
-                element={<LandingPage />}
-              />
-              <Route
-                path="/profile/:username"
-                element={<ProfilePage />}
-              />
-              <Route
-                path="/book/:bookId"
-                element={<BookDetailsPage />}
-              />
-              <Route
-                path="/book-list/:listId"
-                element={<BookListsPage />}
-              />
-            </Routes>
-          }
-          <div>
-            <h1>Book Search</h1>
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search for books"
+return (
+  <main className="App">
+    {user ? (
+      <>
+        <NavBar
+          user={user}
+          setUser={setUser}
+        />
+        {
+          <Routes>
+            <Route
+              path="/"
+              element={<HomePage />}
             />
-            <button onClick={searchBooks}>Search</button>
-            <div>
-              {books && books.length > 0 ? (
-                books.map((book) => (
-                  <div key={book.id}>
-                    <h2>{book.volumeInfo.title}</h2>
-                    <p>
-                      {book.volumeInfo.authors &&
-                        book.volumeInfo.authors.join(', ')}
-                    </p>
-                    <p>{book.volumeInfo.description}</p>
-                  </div>
-                ))
-              ) : (
-                <p>No books found</p>
-              )}
-            </div>
+            <Route
+              path="/"
+              element={<LandingPage />}
+            />
+            <Route
+              path="/profile/:username"
+              element={<ProfilePage />}
+            />
+            <Route
+              path="/book/:bookId"
+              element={<BookDetailsPage />}
+            />
+            <Route
+              path="/book-list/:listId"
+              element={<BookListsPage />}
+            />
+          </Routes>
+        }
+        <div>
+          <h1>Book Search</h1>
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search for books"
+          />
+          <button onClick={searchBooks}>Search</button>
+          <div>
+            {books && books.length > 0 ? (
+              books.map((book) => (
+                <div key={book.id}>
+                  <h2>{book.volumeInfo.title}</h2>
+                  <p>
+                    {book.volumeInfo.authors &&
+                      book.volumeInfo.authors.join(', ')}
+                  </p>
+                  <p>{book.volumeInfo.description}</p>
+                </div>
+              ))
+            ) : (
+              <p>No books found</p>
+            )}
           </div>
-        </>
-      ) : (
-        <AuthPage setUser={setUser} />
-      )}
-    </main>
-  );
+        </div>
+      </>
+    ) : (
+      <AuthPage setUser={setUser} />
+    )}
+  </main>
+);
 }
