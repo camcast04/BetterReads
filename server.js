@@ -26,24 +26,28 @@ app.use(require('./config/checkToken'));
 
 const port = process.env.PORT || 3001;
 
+// Import the books route
+const booksRouter = require('./routes/api/books');
+app.use('/api/books', booksRouter);
+
 // Put API routes here, before the "catch all" route
 app.use('/api/users', require('./routes/api/users'));
 
 // The following "catch all" route (note the *) is necessary
 // to return the index.html on all non-AJAX/API requests
 
-app.get('/api/books', async (req, res) => {
-  const query = req.query.q;
-  const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
-  const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${apiKey}`;
+// app.get('/api/books', async (req, res) => {
+//   const query = req.query.q;
+//   const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
+//   const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${apiKey}`;
   
-  try {
-    const response = await axios.get(url);
-    res.json(response.data);
-  } catch (error) {
-    res.status(500).json({ error: 'Error fetching data from Google Books API' });
-  }
-});
+//   try {
+//     const response = await axios.get(url);
+//     res.json(response.data);
+//   } catch (error) {
+//     res.status(500).json({ error: 'Error fetching data from Google Books API' });
+//   }
+// });
 
 app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));

@@ -7,9 +7,9 @@ import AuthPage from '../AuthPage/AuthPage';
 import NavBar from '../../components/NavBar/NavBar';
 import HomePage from '../HomePage/HomePage';
 import BookDetailsPage from '../BookDetailsPage/BookDetailsPage';
-import BookListsPage from '../BookListsPage';
-import ProfilePage from '../ProfilePage';
-import LandingPage from '../LandingPage';
+import BookListsPage from '../BookListsPage/BookListsPage';
+import ProfilePage from '../ProfilePage/ProfilePage';
+import LandingPage from '../LandingPage/LandingPage';
 
 export default function App() {
   const [user, setUser] = useState(getUser());
