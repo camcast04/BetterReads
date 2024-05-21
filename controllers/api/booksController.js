@@ -18,6 +18,31 @@ const getBooks = async (req, res) => {
 };
 
 
+const getBookDetails = async (req, res) => {
+    const { bookId } = req.params;
+    const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
+    const url = `https://www.googleapis.com/books/v1/volumes/${bookId}?key=${apiKey}`;
+
+    console.log(`Fetching details for book ID: ${bookId}`);
+
+    try {
+        const response = await axios.get(url);
+        const bookData = response.data;
+        res.json({
+            title: bookData.volumeInfo.title,
+            authors: bookData.volumeInfo.authors,
+            publisher: bookData.volumeInfo.publisher,
+            publishedDate: bookData.volumeInfo.publishedDate,
+            description: bookData.volumeInfo.description,
+            coverImage: bookData.volumeInfo.imageLinks?.thumbnail
+        });
+    } catch (error) {
+        console.error('Error fetching book details from Google Books API:', error);
+        res.status(500).json({ error: 'Error fetching book details from Google Books API' });
+    }
+};
+
 module.exports = {
-    getBooks
+    getBooks,
+    getBookDetails
 };
