@@ -19,17 +19,17 @@ export default function App() {
     <main className="App">
       {user ? (
         <>
-          <NavBar
-            user={user}
-            setUser={setUser}
-          />
+          <NavBar user={user} setUser={setUser} />
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/landing" element={<LandingPage />} />
             <Route path="/profile/:username" element={<ProfilePage />} />
             <Route path="/book/:bookId" element={<BookDetailsPage />} />
             <Route path="/book-list/:listId" element={<BookListsPage />} />
-            <Route path="/search" element={<BookSearch setBooks={setBooks} />} />
+            <Route
+              path="/search"
+              element={<BookSearch setBooks={setBooks} />}
+            />
           </Routes>
           <div>
             {books && books.length > 0 ? (
