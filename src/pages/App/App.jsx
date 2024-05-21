@@ -40,10 +40,10 @@ return (
   <main className="App">
     {user ? (
       <>
-        <NavBar
+        {/* <NavBar
           user={user}
           setUser={setUser}
-        />
+        /> */}
         {
           <Routes>
             <Route
