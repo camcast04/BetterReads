@@ -20,6 +20,7 @@ const userSchema = new Schema(
     },
     avatar: { type: String },
     lists: [{ type: Schema.Types.ObjectId, ref: 'List' }],
+    friends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   },
   {
     timestamps: true,
