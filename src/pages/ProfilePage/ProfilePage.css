@@ -1,0 +1,43 @@
+.container {
+  display: grid;
+  grid-gap: 20px;
+  margin: auto;
+}
+
+/* .user-info-box {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(217, 132, 220);
+  padding: 10px;
+} */
+
+.recent-reads {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  background-color: rgb(220, 200, 132);
+  padding: 10px;
+}
+
+.user-info-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgb(217, 132, 220);
+  padding: 10px;
+  justify-content: space-around;
+}
+
+.user-subdetails,
+list {
+  display: flex;
+  flex-direction: column;
+}
+
+.list {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  background-color: rgb(220, 200, 132);
+  padding: 10px;
+}

@@ -11,11 +11,13 @@ export default function NavBar({ user, setUser }) {
     <nav>
       <Link to="/books">My Books</Link>
       &nbsp; | &nbsp;
-      <Link to="/reviews">Reviews</Link>
+      <Link to="/profile">Profile</Link>
       &nbsp;&nbsp;
       <span>Welcome, {user.name}</span>
-      &nbsp;&nbsp;<Link to="" onClick={handleLogOut}>Log Out</Link>
+      &nbsp;&nbsp;
+      <Link to="" onClick={handleLogOut}>
+        Log Out
+      </Link>
     </nav>
   );
 }
-
