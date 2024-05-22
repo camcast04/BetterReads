@@ -3,8 +3,9 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = function(req, res, next) {
+  console.log('ensureLoggedIn middleware executed');
   const token = req.headers.authorization?.split(' ')[1];
-  
+
   if (!token) {
     console.log('No token provided');
     return res.status(401).json({ message: 'Unauthorized: No token provided' });
