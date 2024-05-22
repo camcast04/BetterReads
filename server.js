@@ -36,8 +36,7 @@ app.use(require('./config/checkToken'));
 const booksRouter = require('./routes/api/books');
 app.use('/api/books', booksRouter);
 
-// Put API routes here, before the "catch all" route
-app.use('/api/users', require('./routes/api/users'));
+
 
 
 
