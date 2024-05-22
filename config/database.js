@@ -1,3 +1,5 @@
+//betterreads/config/database.js
+
 const mongoose = require('mongoose');
 
 mongoose.connect(process.env.DATABASE_URL);
