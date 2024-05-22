@@ -13,6 +13,7 @@ export default function BookDetailsPage() {
   const [newReview, setNewReview] = useState('');
   const [rating, setRating] = useState(0);
   const [relatedBooks, setRelatedBooks] = useState([]);
+  // eslint-disable-next-line
   const [listId, setListId] = useState(''); 
   const [selectedList, setSelectedList] = useState('Favorites');
 
