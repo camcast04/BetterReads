@@ -1,9 +1,21 @@
 // better-reads/src/pages/ProfilePage/ProfilePage.jsx
-
+import React, { useState } from 'react';
 import './ProfilePage.css';
 import BookCard from '../../components/BookCard/BookCard';
+import Modal from '../../components/Modal/Modal';
 
 export default function ProfilePage({ user }) {
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  const toggleEditModal = () => {
+    setIsEditModalOpen(!isEditModalOpen);
+  };
+
+  const updateUserDetails = (updatedDetails) => {
+    console.log('Updated user details:', updatedDetails);
+    toggleEditModal();
+  };
+
   return (
     <div className="container">
       <div className="user-info-box">
@@ -20,7 +32,7 @@ export default function ProfilePage({ user }) {
           <p>
             <strong>Birthday:</strong> {user.birthday || 'Not Provided'}
           </p>
-          <button>Edit User Details</button>
+          <button onClick={toggleEditModal}>Edit User Details</button>
         </div>
       </div>
       <div className="recent-reads">
@@ -58,6 +70,14 @@ export default function ProfilePage({ user }) {
           <BookCard />
         </div>
       </div>
+      <Modal isOpen={isEditModalOpen} onClose={toggleEditModal}>
+        <h2>Edit User Details</h2>
+        <form action="">
+          <label></label>
+          <input type="text" value="" />
+        </form>
+        <button onClick={updateUserDetails}>Save Changes</button>
+      </Modal>
     </div>
   );
 }
