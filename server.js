@@ -30,12 +30,10 @@ app.use('/api/users', usersRouter);
 // assign the user object from the JWT to req.user
 app.use(require('./config/checkToken'));
 
-;
 
 // Import the books route
 const booksRouter = require('./routes/api/books');
 app.use('/api/books', booksRouter);
-
 
 
 
