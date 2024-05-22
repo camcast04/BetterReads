@@ -3,6 +3,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../../models/user');
+const Book = require('../../models/book');
 
 module.exports = {
   create,
@@ -38,8 +39,22 @@ async function login(req, res) {
 async function createList(req, res) {
   try {
     const user = await User.findById(req.params.userId);
-    user.lists.push({ name: req.params.listName });
+    if (!user) throw new Error('User not found');
+    const newList = {
+      name: req.params.listName,
+      books: [],
+    };
+
+    const book = await Book.findById(req.body.bookId);
+    if (book) {
+      newList.books.push(book);
+    } else {
+      throw new Error('Book not found');
+    }
+
+    user.lists.push(newList);
     await user.save();
+
     res.json(user);
   } catch (err) {
     console.error('Error creating list:', err);
