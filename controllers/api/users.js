@@ -7,6 +7,7 @@ const User = require('../../models/user');
 module.exports = {
   create,
   login,
+  createList,
 };
 
 async function create(req, res) {
@@ -30,6 +31,18 @@ async function login(req, res) {
     res.json(token);
   } catch (err) {
     console.error('Login error:', err);
+    res.status(400).json({ message: err.message });
+  }
+}
+
+async function createList(req, res) {
+  try {
+    const user = await User.findById(req.params.userId);
+    user.lists.push({ name: req.params.listName });
+    await user.save();
+    res.json(user);
+  } catch (err) {
+    console.error('Error creating list:', err);
     res.status(400).json({ message: err.message });
   }
 }

@@ -7,14 +7,11 @@ const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
 // All paths start with '/api/users'
 
-// All paths start with '/api/users'
-
 // POST /api/users (create a user - sign up)
 router.post('/', usersCtrl.create); // Should not have middleware
 // POST /api/users/login
 router.post('/login', usersCtrl.login); // Should not have middleware
-// GET /api/users/check-token
-router.get('/check-token', ensureLoggedIn, usersCtrl.checkToken); // Should have middleware
-
+// POST /api/users/:userId/lists/:listName
+router.post('/:userId/lists/:listName', ensureLoggedIn, usersCtrl.createList); // Should have middleware
 
 module.exports = router;
