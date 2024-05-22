@@ -10,14 +10,10 @@ module.exports = {
   checkToken
 };
 
-function checkToken(req, res) {
-  console.log('checkToken - req.user:', req.user);
-  res.json(req.user);
-}
-
 async function create(req, res) {
   try {
-    console.log('Creating user:', req.body);
+    console.log('create function called');
+    console.log('Request body:', req.body);
     const user = await User.create(req.body);
     console.log('User created:', user);
     const token = createJWT(user);
@@ -44,8 +40,12 @@ async function login(req, res) {
   }
 }
 
-/*--- Helper Functions --*/
+function checkToken(req, res) {
+  console.log('checkToken - req.user:', req.user);
+  res.json(req.user);
+}
 
+/*--- Helper Functions --*/
 
 function createJWT(user) {
   return jwt.sign(
