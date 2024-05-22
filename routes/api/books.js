@@ -13,6 +13,7 @@ router.get('/', ensureLoggedIn, (req, res, next) => {
     next();
 }, booksController.getBooks);
 
+router.get('/', ensureLoggedIn, booksController.getBooks);
 router.get('/details/:bookId', ensureLoggedIn, booksController.getBookDetails);
 
 module.exports = router;
