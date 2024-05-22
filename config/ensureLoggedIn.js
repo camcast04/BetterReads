@@ -1,4 +1,4 @@
-//betterreads/config/ensureLoggedIn.js
+//better-reads/config/ensureLoggedIn.js
 
 const jwt = require('jsonwebtoken');
 

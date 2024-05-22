@@ -1,4 +1,4 @@
-// betterreads/controllers/api/booksControllers.js
+// better-reads/controllers/api/booksControllers.js
 
 const axios = require('axios');
 

@@ -1,4 +1,4 @@
-// betterreads/config/checkToken.js
+// better-reads/config/checkToken.js
 
 const jwt = require('jsonwebtoken');
 

@@ -1,3 +1,5 @@
+// better-reads/src/pages/HomePage/HomePage.jsx
+
 export default function HomePage() {
   return (
     //

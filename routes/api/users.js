@@ -1,4 +1,4 @@
-//betterreads/routes/api/users.js
+//better-reads/routes/api/users.js
 
 const express = require('express');
 const router = express.Router();

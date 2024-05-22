@@ -1,4 +1,4 @@
-// betterreads/controllers/api/users.js
+// better-reads/controllers/api/users.js
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
