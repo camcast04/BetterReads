@@ -22,22 +22,12 @@ app.use(express.json());
 app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'build')));
 
-
 const usersRouter = require('./routes/api/users');
 app.use('/api/users', usersRouter);
-
-// Middleware to check and verify a JWT and
-// assign the user object from the JWT to req.user
-app.use(require('./config/checkToken'));
-
 
 // Import the books route
 const booksRouter = require('./routes/api/books');
 app.use('/api/books', booksRouter);
-
-
-
-
 
 //****************
 
@@ -48,7 +38,7 @@ app.use('/api/books', booksRouter);
 //   const query = req.query.q;
 //   const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
 //   const url = `https://www.googleapis.com/books/v1/volumes?q=${query}&key=${apiKey}`;
-  
+
 //   try {
 //     const response = await axios.get(url);
 //     res.json(response.data);
@@ -57,12 +47,12 @@ app.use('/api/books', booksRouter);
 //   }
 // });
 
-app.get('/*', function(req, res) {
+app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-const port = process.env.PORT || 3001
+const port = process.env.PORT || 3001;
 
-app.listen(port, function() {
+app.listen(port, function () {
   console.log(`Express app running on port ${port}`);
 });

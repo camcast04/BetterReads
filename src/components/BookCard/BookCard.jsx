@@ -12,7 +12,10 @@ export default function BookCard({ book }) {
 
   return (
     <div className="book-card">
-      <img src={book.coverImage || "https://placehold.co/100x120"} alt={`${book.title} cover`} />
+      <img
+        src={book.coverImage || 'https://placehold.co/100x120'}
+        alt={`${book.title} cover`}
+      />
       <div className="book-card-content">
         <h1>{book.title}</h1>
         <p>{book.authors.join(', ')}</p>

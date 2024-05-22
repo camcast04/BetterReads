@@ -3,10 +3,12 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../../models/user');
+const Book = require('../../models/book');
 
 module.exports = {
   create,
   login,
+  createList,
 };
 
 async function create(req, res) {
@@ -30,6 +32,32 @@ async function login(req, res) {
     res.json(token);
   } catch (err) {
     console.error('Login error:', err);
+    res.status(400).json({ message: err.message });
+  }
+}
+
+async function createList(req, res) {
+  try {
+    const user = await User.findById(req.params.userId);
+    if (!user) throw new Error('User not found');
+    const newList = {
+      name: req.params.listName,
+      books: [],
+    };
+
+    const book = await Book.findById(req.body.bookId);
+    if (book) {
+      newList.books.push(book);
+    } else {
+      throw new Error('Book not found');
+    }
+
+    user.lists.push(newList);
+    await user.save();
+
+    res.json(user);
+  } catch (err) {
+    console.error('Error creating list:', err);
     res.status(400).json({ message: err.message });
   }
 }
