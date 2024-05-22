@@ -4,13 +4,6 @@
   margin: auto;
 }
 
-/* .user-info-box {
-  display: flex;
-  flex-direction: row;
-  background-color: rgb(217, 132, 220);
-  padding: 10px;
-} */
-
 .recent-reads {
   display: flex;
   justify-content: space-around;
