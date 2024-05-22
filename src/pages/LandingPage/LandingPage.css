@@ -8,8 +8,9 @@
     display: flex;
     justify-content: space-between;
     padding: 1rem;
-    background: #fff;
+    background: #fdfcf7;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius:15px 15px 0% 0%; 
   }
   
   .landing-header nav a {
@@ -19,18 +20,21 @@
   }
   
   .landing-main {
+    background-color: #fdfcf7;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 2rem;
+    border-radius:0 0 15px 15px; 
   }
   
   .intro-section {
     background: url('/public/images/Hero.jpg') no-repeat center center;
     background-size: cover;
-    padding: 4rem;
+    padding:5.2rem 12rem;
     text-align: center;
     color: white;
+    border-radius:10px; 
   }
   
   .goodreads-section {
@@ -42,9 +46,14 @@
     display: inline-block;
     margin: 1rem;
     padding: 0.5rem 1rem;
-    background: #0066cc;
+    background: #282828;
     color: white;
     text-decoration: none;
     border-radius: 5px;
   }
+
+  .goodreads-section span {
+    font-weight:bold;
+    }
+  
   

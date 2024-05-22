@@ -21,9 +21,9 @@ export default function LandingPage() {
           <h1>Love reading and collecting books? This is the perfect place for you.</h1>
         </section>
         <section className="goodreads-section">
-          <h2>BetterReads</h2>
+          <h2>Better<span>Reads</span> 📚</h2>
           <p>Your personalized library, community and book discovery platform, all in one place.</p>
-          <Link to="/auth" className="button">Log In if you are already a member</Link>
+          <Link to="/auth" className="button">Log In (If you're already a member)</Link>
           <Link to="/auth" className="button">Sign in</Link>
         </section>
       </main>
