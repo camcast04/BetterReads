@@ -29,6 +29,7 @@ export default function App() {
             <Route path="/book/:bookId" element={<BookDetailsPage />} />
             <Route path="/book-list/:listId" element={<BookListsPage />} />
             <Route path="/search" element={<BookSearch />} />
+            <Route path="/my-books" element={<BookListsPage />} />
           </Routes>
         </>
       ) : (

@@ -9,6 +9,7 @@ module.exports = {
   create,
   login,
   createList,
+  addBookToList,
 };
 
 async function create(req, res) {
@@ -58,6 +59,27 @@ async function createList(req, res) {
     res.json(user);
   } catch (err) {
     console.error('Error creating list:', err);
+    res.status(400).json({ message: err.message });
+  }
+}
+
+async function addBookToList(req, res) {
+  try {
+    const user = await User.findById(req.user.user._id);
+    if (!user) throw new Error('User not found');
+
+    const list = user.lists.find(list => list.name === req.params.listName);
+    if (!list) throw new Error('List not found');
+
+    const book = await Book.findById(req.body.bookId);
+    if (!book) throw new Error('Book not found');
+
+    list.books.push(book);
+    await user.save();
+
+    res.json(list);
+  } catch (err) {
+    console.error('Error adding book to list:', err);
     res.status(400).json({ message: err.message });
   }
 }
