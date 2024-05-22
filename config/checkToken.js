@@ -1,11 +1,17 @@
+// better-reads/config/checkToken.js
+
 const jwt = require('jsonwebtoken');
 
 module.exports = function (req, res, next) {
   const token = req.get('Authorization')?.split(' ')[1];
-  if (!token) return res.status(401).json('Unauthorized');
+  if (!token) {
+    return res.status(401).json({ message: 'Unauthorized: No token provided' });
+  }
 
   jwt.verify(token, process.env.SECRET, function (err, decoded) {
-    if (err) return res.status(401).json('Unauthorized');
+    if (err) {
+      return res.status(401).json({ message: 'Unauthorized: Invalid or expired token' });
+    }
     req.user = decoded.user;
     next();
   });

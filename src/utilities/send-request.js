@@ -1,3 +1,5 @@
+//better-reads/src/utilities/send-request.js
+
 export default async function sendRequest(url, method = 'GET', payload = null) {
   const options = { method };
   if (payload) {
@@ -11,10 +13,15 @@ export default async function sendRequest(url, method = 'GET', payload = null) {
     options.headers.Authorization = `Bearer ${token}`;
   }
 
+  console.log('Sending request to:', url);
+  console.log('Options:', options);
+
   const res = await fetch(url, options);
   if (res.ok) return res.json();
-  throw new Error('Bad Request');
+  const errorMessage = await res.text();
+  throw new Error(errorMessage || 'Bad Request');
 }
+
 
 
 // import { getToken } from './users-service';

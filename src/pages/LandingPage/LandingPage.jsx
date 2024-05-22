@@ -1,3 +1,5 @@
+// better-reads/src/pages/LandingPage/LandingPage.jsx
+
 export default function LandingPage() {
   return (
     //

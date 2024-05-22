@@ -1,3 +1,5 @@
+// better-reads/src/pages/ProfilePage/ProfilePage.jsx
+
 import './ProfilePage.css';
 import BookCard from '../../components/BookCard/BookCard';
 

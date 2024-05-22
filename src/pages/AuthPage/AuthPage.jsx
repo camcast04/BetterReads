@@ -1,3 +1,5 @@
+//better-reads/src/pages/AuthPage/AuthPage.jsx
+
 import { useState } from 'react';
 import SignUpForm from '../../components/SignUpForm/SignUpForm';
 import LoginForm from '../../components/LoginForm/LoginForm';
