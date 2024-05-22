@@ -1,3 +1,5 @@
+// betterreads/models/users.js
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
@@ -38,6 +40,7 @@ userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) return next();
   // Replace the password with the computed hash
   this.password = await bcrypt.hash(this.password, SALT_ROUNDS);
+  next(); // Ensure you call next() after hashing the password
 });
 
 module.exports = mongoose.model('User', userSchema);

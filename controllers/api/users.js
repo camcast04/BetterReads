@@ -1,3 +1,5 @@
+// betterreads/controllers/api/users.js
+
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../../models/user');
@@ -9,39 +11,44 @@ module.exports = {
 };
 
 function checkToken(req, res) {
-  console.log('req.user', req.user);
-  res.json(req.exp);
+  console.log('checkToken - req.user:', req.user);
+  res.json(req.user);
 }
 
 async function create(req, res) {
   try {
-    // Add the user to the db
+    console.log('Creating user:', req.body);
     const user = await User.create(req.body);
+    console.log('User created:', user);
     const token = createJWT(user);
+    console.log('Token created:', token);
     res.json(token);
   } catch (err) {
-    res.status(400).json(err);
+    console.error('Error creating user:', err);
+    res.status(400).json({ message: err.message });
   }
 }
 
 async function login(req, res) {
   try {
-    const user = await User.findOne({email: req.body.email});
-    if (!user) throw new Error();
+    console.log('Logging in user:', req.body);
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) throw new Error('User not found');
     const match = await bcrypt.compare(req.body.password, user.password);
-    if (!match) throw new Error();
+    if (!match) throw new Error('Invalid password');
     const token = createJWT(user);
     res.json(token);
   } catch (err) {
-    res.status(400).json('Bad Credentials');
+    console.error('Login error:', err);
+    res.status(400).json({ message: err.message });
   }
 }
 
 /*--- Helper Functions --*/
 
+
 function createJWT(user) {
   return jwt.sign(
-    // data payload
     { user },
     process.env.SECRET,
     { expiresIn: '24h' }
