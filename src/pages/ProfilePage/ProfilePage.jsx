@@ -15,10 +15,10 @@ export default function ProfilePage({ user }) {
         <h1>{user.name}</h1>
         <div className="user-subdetails">
           <p>
-            <span>Email:</span> {user.email}
+            <strong>Email:</strong> {user.email}
           </p>
           <p>
-            <span>Birthday:</span> {user.birthday || 'Not Provided'}
+            <strong>Birthday:</strong> {user.birthday || 'Not Provided'}
           </p>
           <button>Edit User Details</button>
         </div>

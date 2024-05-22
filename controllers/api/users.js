@@ -7,17 +7,12 @@ const User = require('../../models/user');
 module.exports = {
   create,
   login,
-  checkToken
 };
 
 async function create(req, res) {
   try {
-    console.log('create function called');
-    console.log('Request body:', req.body);
     const user = await User.create(req.body);
-    console.log('User created:', user);
     const token = createJWT(user);
-    console.log('Token created:', token);
     res.json(token);
   } catch (err) {
     console.error('Error creating user:', err);
@@ -27,7 +22,6 @@ async function create(req, res) {
 
 async function login(req, res) {
   try {
-    console.log('Logging in user:', req.body);
     const user = await User.findOne({ email: req.body.email });
     if (!user) throw new Error('User not found');
     const match = await bcrypt.compare(req.body.password, user.password);
@@ -40,17 +34,8 @@ async function login(req, res) {
   }
 }
 
-function checkToken(req, res) {
-  console.log('checkToken - req.user:', req.user);
-  res.json(req.user);
-}
-
 /*--- Helper Functions --*/
 
 function createJWT(user) {
-  return jwt.sign(
-    { user },
-    process.env.SECRET,
-    { expiresIn: '24h' }
-  );
+  return jwt.sign({ user }, process.env.SECRET, { expiresIn: '24h' });
 }
