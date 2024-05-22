@@ -9,6 +9,17 @@
   --text-light: #968c84;
   --text-dark: #615954;
 }
+/*     --primary-100:#BFAE9F;
+    --primary-200:#937962;
+    --primary-300:#FFFFFF;
+    --accent-100:#C9BEB9;
+    --accent-200:#978178;
+    --text-100:#4D4D4D;
+    --text-200:#9e9e9e;
+    --bg-100:#F5EFE8;
+    --bg-200:#EEE3D7;
+    --bg-300:#FFFFFF;
+       */
 
 *, *:before, *:after {
   box-sizing: border-box;

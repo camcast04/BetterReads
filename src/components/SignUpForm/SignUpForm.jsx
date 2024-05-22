@@ -1,4 +1,4 @@
-//betterreads/src/components/SignUpForm/SignUpForm.jsx
+//better-reads/src/components/SignUpForm/SignUpForm.jsx
 
 import { Component } from 'react';
 import { signUp } from '../../utilities/users-service';

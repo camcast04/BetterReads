@@ -1,4 +1,4 @@
-//betterreads/src/utilities/send-request.js
+//better-reads/src/utilities/send-request.js
 
 export default async function sendRequest(url, method = 'GET', payload = null) {
   const options = { method };

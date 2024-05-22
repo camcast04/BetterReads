@@ -1,4 +1,4 @@
-// betterreads/models/users.js
+// better-reads/models/users.js
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
