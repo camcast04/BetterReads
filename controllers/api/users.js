@@ -62,6 +62,7 @@ async function createList(req, res) {
   }
 }
 
+
 /*--- Helper Functions --*/
 
 function createJWT(user) {
