@@ -29,11 +29,13 @@ export default function App() {
             <Route path="/book/:bookId" element={<BookDetailsPage />} />
             <Route path="/book-list/:listId" element={<BookListsPage />} />
             <Route path="/search" element={<BookSearch />} />
-            <Route path="/my-books" element={<BookListsPage />} />
           </Routes>
         </>
       ) : (
-        <AuthPage setUser={setUser} />
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/auth" element={<AuthPage setUser={setUser} />} />
+        </Routes>
       )}
     </main>
   );
