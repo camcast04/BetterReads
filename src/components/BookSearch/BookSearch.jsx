@@ -39,59 +39,6 @@ const BookSearch = () => {
         }
     };
 
-
-    // const searchBooks = async () => {
-    //     try {
-    //         const token = localStorage.getItem('token');
-    //         if (!token) {
-    //             throw new Error('No token found');
-    //         }
-
-    //         const response = await axios.get(`/api/books?q=${query}`, {
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`
-    //             }
-    //         });
-
-    //         if (response.data.items) {
-    //             setBooks(response.data.items);
-    //         } else {
-    //             setBooks([]);
-    //         }
-    //     } catch (error) {
-    //         setError(error.message);
-    //     }
-    // };
-
-
-    // const searchBooks = async () => {
-    //     try {
-    //         const token = localStorage.getItem('token');
-    //         if (!token) {
-    //             throw new Error('No token found');
-    //         }
-    //         console.log('Token:', token);
-
-    //         const response = await axios.get(`/api/books?q=${query}`, {
-    //             headers: {
-    //                 Authorization: `Bearer ${token}`
-    //             }
-    //         });
-    //         console.log('Request headers:', response.config.headers); 
-    //         console.log('Response data:', response.data);
-
-    //         if (response.data.items) {
-    //             setBooks(response.data.items);
-    //         } else {
-    //             console.log('No items found in response');
-    //             setBooks([]);
-    //         }
-    //     } catch (error) {
-    //         console.error('Error fetching data:', error);
-    //         setError(error.message);
-    //     }
-    // };
-
     return (
         <div>
             <h1>Book Search</h1>
@@ -115,44 +62,6 @@ const BookSearch = () => {
         </div>
     );
 };
-        // <div>
-        //     <h1>Book Search</h1>
-        //     <input
-        //         type="text"
-        //         value={query}
-        //         onChange={(e) => setQuery(e.target.value)}
-        //         placeholder="Search for books"
-        //     />
-        //     <button onClick={searchBooks}>Search</button>
-        //     {error && <p>Error: {error}</p>}
-        //     <div>
-        //         {books && books.length > 0 ? (
-        //             books.map((book) => (
-        //                 <div key={book.id}>
-        //                     <h2>{book.volumeInfo.title}</h2>
-        //                     <p>
-        //                         {book.volumeInfo.authors && book.volumeInfo.authors.join(', ')}
-        //                     </p>
-        //                     <p>{book.volumeInfo.description}</p>
-        //                 </div>
-        //             ))
-        //         ) : (
-        //             <p>No books found</p>
-        //         )}
-        //     </div>
-        // </div>
-
-        // <div>
-        //     <h1>Book Search</h1>
-        //     <input
-        //         type="text"
-        //         value={query}
-        //         onChange={(e) => setQuery(e.target.value)}
-        //         placeholder="Search for books"
-        //     />
-        //     <button onClick={searchBooks}>Search</button>
-        //     {error && <p>Error: {error}</p>}
-        // </div>
 
 export default BookSearch;
 
