@@ -25,8 +25,11 @@ export default function ProfilePage({ user }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const updatedUser = { ...user, name, email, avatar };
-      await usersService.updateUser(updatedUser);
+      setName((prevName) => name);
+      setEmail((prevEmail) => email);
+      setAvatar((prevAvatar) => avatar);
+
+      await usersService.updateUser({ name, email, avatar });
       toggleEditModal();
     } catch (err) {
       setError('Failed to update user details');
@@ -41,13 +44,13 @@ export default function ProfilePage({ user }) {
           src={avatar || 'https://via.placeholder.com/150'}
           alt={`${user.name}'s avatar`}
         />
-        <h1>{user.name}</h1>
+        <h1>{name}</h1>
         <div className="user-subdetails">
           <p>
-            <strong>Email:</strong> {user.email}
+            <strong>Email:</strong> {email}
           </p>
           <p>
-            <strong>Birthday:</strong> {user.birthday || 'Not Provided'}
+            <strong>Email:</strong> {email}
           </p>
           <button onClick={toggleEditModal}>Edit User Details</button>
         </div>
