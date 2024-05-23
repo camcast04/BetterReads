@@ -6,6 +6,8 @@ import Modal from '../../components/Modal/Modal';
 
 export default function ProfilePage({ user }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
 
   const toggleEditModal = () => {
     setIsEditModalOpen(!isEditModalOpen);
@@ -73,8 +75,23 @@ export default function ProfilePage({ user }) {
       <Modal isOpen={isEditModalOpen} onClose={toggleEditModal}>
         <h2>Edit User Details</h2>
         <form action="">
-          <label></label>
+          <label>Name:</label>
           <input type="text" value="" />
+          <label>Email:</label>
+          <input type="text" value="" />
+          <label>Avatar:</label>
+          <select name="" id="">
+            <option value=""></option>
+            <option value=""></option>
+            <option value=""></option>
+            <option value=""></option>
+            <option value=""></option>
+            <option value=""></option>
+            <option value=""></option>
+            <option value=""></option>
+            <option value=""></option>
+          </select>
+          <option value=""></option>
         </form>
         <button onClick={updateUserDetails}>Save Changes</button>
       </Modal>
