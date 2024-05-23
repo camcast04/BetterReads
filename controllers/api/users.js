@@ -12,6 +12,7 @@ module.exports = {
   login,
   createList,
   addBookToList,
+  updateUser,
 };
 
 async function create(req, res) {
@@ -47,7 +48,7 @@ async function createList(req, res) {
     const newList = new List({
       listName: req.params.listName,
       user: user._id,
-      books: []
+      books: [],
     });
 
     if (req.body.bookId) {
@@ -70,13 +71,15 @@ async function createList(req, res) {
   }
 }
 
-
 async function addBookToList(req, res) {
   try {
     const user = await User.findById(req.user._id).populate('lists').exec();
     if (!user) throw new Error('User not found');
 
-    const list = await List.findOne({ _id: { $in: user.lists }, listName: req.params.listName });
+    const list = await List.findOne({
+      _id: { $in: user.lists },
+      listName: req.params.listName,
+    });
     if (!list) throw new Error('List not found');
 
     // Fetch book details from Google Books API
@@ -99,7 +102,7 @@ async function addBookToList(req, res) {
         publisher: bookData.volumeInfo.publisher,
         publishedDate: bookData.volumeInfo.publishedDate,
         description: bookData.volumeInfo.description,
-        coverImage: bookData.volumeInfo.imageLinks?.thumbnail
+        coverImage: bookData.volumeInfo.imageLinks?.thumbnail,
       });
       await book.save();
     }
@@ -114,13 +117,25 @@ async function addBookToList(req, res) {
   }
 }
 
+async function updateUser(req, res) {
+  try {
+    const user = await User.findById(req.user._id);
 
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
 
-/*--- Helper Functions --*/
+    user.name = req.body.name;
+    user.email = req.body.email;
+    user.avatar = req.body.avatar;
+    await user.save();
 
-// function createJWT(user) {
-//   return jwt.sign({ user }, process.env.SECRET, { expiresIn: '24h' });
-// }
+    res.json(user);
+  } catch (err) {
+    console.error('Error updating user:', err);
+    res.status(400).json({ message: err.message });
+  }
+}
 
 function createJWT(user) {
   return jwt.sign(
