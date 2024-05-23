@@ -39,28 +39,28 @@ const BookSearch = () => {
     }
   };
 
-  return (
-    <div>
-      <h1>Book Search</h1>
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search for books"
-      />
-      <button onClick={searchBooks}>Search</button>
-      {error && <p>Error: {error}</p>}
-      <div>
-        {books && books.length > 0 ? (
-          books.map((book) => (
-            <BookCard key={book.id} book={book} />
-          ))
-        ) : (
-          <p>No books found</p>
-        )}
-      </div>
-    </div>
-  );
+    return (
+        <div>
+            <h1>Book Search</h1>
+            <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search for books"
+            />
+            <button onClick={searchBooks}>Search</button>
+            {error && <p>Error: {error}</p>}
+            <div className="book-cards-container">
+                {books && books.length > 0 ? (
+                    books.map((book) => (
+                        <BookCard key={book.id} book={book} />
+                    ))
+                ) : (
+                    <p>No books found</p>
+                )}
+            </div>
+        </div>
+    );
 };
 
 export default BookSearch;

@@ -1,0 +1,8 @@
+/* better-reads/src/components/BookSearch/BookSearch.css */
+
+.book-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px; /* Space between cards */
+    justify-content: center; /* Center cards horizontally */
+}
