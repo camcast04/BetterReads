@@ -3,6 +3,7 @@ import './ProfilePage.css';
 import BookCard from '../../components/BookCard/BookCard';
 import Modal from '../../components/Modal/Modal';
 import * as usersService from '../../utilities/users-service';
+import { avatarPaths } from '../../constants/avatarPaths';
 
 export default function ProfilePage({ user }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -10,6 +11,8 @@ export default function ProfilePage({ user }) {
   const [email, setEmail] = useState(user.email);
   const [avatar, setAvatar] = useState(user.avatar || '');
   const [error, setError] = useState(null);
+
+  const defaultAvatar = 'https://placehold.co/100';
 
   const toggleEditModal = () => {
     setIsEditModalOpen(!isEditModalOpen);
@@ -37,12 +40,13 @@ export default function ProfilePage({ user }) {
   };
 
   return (
-    <div className="container">
+    <div style={{ marginTop: '100px' }} className="container">
       <div className="user-info-box">
         <img
           style={{ borderRadius: '50%' }}
-          src={avatar || 'https://via.placeholder.com/150'}
+          src={avatar}
           alt={`${user.name}'s avatar`}
+          className="avatar"
         />
         <h1>{name}</h1>
         <div className="user-subdetails">
@@ -91,12 +95,15 @@ export default function ProfilePage({ user }) {
             onChange={handleChange}
           />
           <label>Avatar:</label>
-          <input
-            type="text"
-            name="avatar"
-            value={avatar}
-            onChange={handleChange}
-          />
+          <select name="avatar" value={avatar} onChange={handleChange}>
+            {avatarPaths.map((path, index) => {
+              return (
+                <option key={index} value={path}>
+                  {path}
+                </option>
+              );
+            })}
+          </select>
           <button type="submit">Save Changes</button>
         </form>
       </Modal>
