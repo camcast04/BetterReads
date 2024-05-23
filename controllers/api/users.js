@@ -12,19 +12,8 @@ module.exports = {
   login,
   createList,
   addBookToList,
+  updateUser,
 };
-
-// async function create(req, res) {
-//   try {
-//     const user = await User.create(req.body);
-//     const token = createJWT(user);
-//     res.json(token);
-//   } catch (err) {
-//     console.error('Error creating user:', err);
-//     res.status(400).json({ message: err.message });
-//   }
-// }
-
 
 async function create(req, res) {
   try {
@@ -73,7 +62,7 @@ async function createList(req, res) {
     const newList = new List({
       listName: req.params.listName,
       user: user._id,
-      books: []
+      books: [],
     });
 
     if (req.body.bookId) {
@@ -96,57 +85,15 @@ async function createList(req, res) {
   }
 }
 
-
-// async function addBookToList(req, res) {
-//   try {
-//     const user = await User.findById(req.user._id).populate('lists').exec();
-//     if (!user) throw new Error('User not found');
-
-//     const list = await List.findOne({ _id: { $in: user.lists }, listName: req.params.listName });
-//     if (!list) throw new Error('List not found');
-
-//     // Fetch book details from Google Books API
-//     const bookId = req.body.bookId;
-//     const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
-//     const url = `https://www.googleapis.com/books/v1/volumes/${bookId}?key=${apiKey}`;
-
-//     const response = await axios.get(url);
-//     const bookData = response.data;
-
-//     // Check if book already exists in the local database
-//     let book = await Book.findOne({ googleBooksId: bookId });
-
-//     if (!book) {
-//       // Create a new book record if it doesn't exist
-//       book = new Book({
-//         googleBooksId: bookId,
-//         title: bookData.volumeInfo.title,
-//         authors: bookData.volumeInfo.authors,
-//         publisher: bookData.volumeInfo.publisher,
-//         publishedDate: bookData.volumeInfo.publishedDate,
-//         description: bookData.volumeInfo.description,
-//         coverImage: bookData.volumeInfo.imageLinks?.thumbnail
-//       });
-//       await book.save();
-//     }
-
-//     list.books.push(book._id);
-//     await list.save();
-
-//     res.json(list);
-//   } catch (err) {
-//     console.error('Error adding book to list:', err);
-//     res.status(400).json({ message: err.message });
-//   }
-// }
-
-
 async function addBookToList(req, res) {
   try {
     const user = await User.findById(req.user._id).populate('lists').exec();
     if (!user) throw new Error('User not found');
 
-    const list = await List.findOne({ _id: { $in: user.lists }, listName: req.params.listName });
+    const list = await List.findOne({
+      _id: { $in: user.lists },
+      listName: req.params.listName,
+    });
     if (!list) throw new Error('List not found');
 
     const bookId = req.body.bookId;
@@ -166,7 +113,7 @@ async function addBookToList(req, res) {
         publisher: bookData.volumeInfo.publisher,
         publishedDate: bookData.volumeInfo.publishedDate,
         description: bookData.volumeInfo.description,
-        coverImage: bookData.volumeInfo.imageLinks?.thumbnail
+        coverImage: bookData.volumeInfo.imageLinks?.thumbnail,
       });
       await book.save();
     }
@@ -183,14 +130,26 @@ async function addBookToList(req, res) {
   }
 }
 
+async function updateUser(req, res) {
+  try {
+    const user = await User.findById(req.user._id);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    user.name = req.body.name;
+    user.email = req.body.email;
+    user.avatar = req.body.avatar;
+    await user.save();
 
 
-
-/*--- Helper Functions --*/
-
-// function createJWT(user) {
-//   return jwt.sign({ user }, process.env.SECRET, { expiresIn: '24h' });
-// }
+    res.json(user);
+  } catch (err) {
+    console.error('Error updating user:', err);
+    res.status(400).json({ message: err.message });
+  }
+}
 
 function createJWT(user) {
   return jwt.sign(
