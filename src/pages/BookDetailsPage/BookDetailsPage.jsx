@@ -26,7 +26,7 @@ export default function BookDetailsPage({ user }) {
 
   const handleAddToList = async () => {
     try {
-      await sendRequest(`/api/users/${user._id}/lists/${selectedList}/books`, 'POST', { bookId });
+      await sendRequest(`/api/users/me/lists/${selectedList}/books`, 'POST', { bookId });
       alert('Book added to list!');
     } catch (error) {
       setError(error.message);
@@ -52,9 +52,9 @@ export default function BookDetailsPage({ user }) {
         <p>{bookDetails.description}</p>
         <select value={selectedList} onChange={(e) => setSelectedList(e.target.value)}>
           <option value="Favorites">Favorites</option>
-          <option value="Currently Reading">Currently Reading</option>
-          <option value="Did Not Finish">Did Not Finish</option>
+          <option value="Read">Read</option>
           <option value="To Read">To Read</option>
+          <option value="DNF">DNF</option>
         </select>
         <button onClick={handleAddToList}>Add to List</button>
       </div>
