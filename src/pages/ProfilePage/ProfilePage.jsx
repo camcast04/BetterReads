@@ -47,7 +47,7 @@ export default function ProfilePage({ user }) {
         <h1>{name}</h1>
         <div className="user-subdetails">
           <p>
-            <strong>Email:</strong> {email}
+            <strong>Name:</strong> {name}
           </p>
           <p>
             <strong>Email:</strong> {email}
