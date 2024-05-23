@@ -1,5 +1,4 @@
 // better-reads/controllers/api/users.js
-
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../../models/user');
@@ -12,7 +11,7 @@ module.exports = {
   login,
   createList,
   addBookToList,
-  updateUser,
+  getListByName,
 };
 
 async function create(req, res) {
@@ -23,7 +22,7 @@ async function create(req, res) {
       listName,
       user: user._id,
       books: [],
-      is_default: true
+      is_default: true,
     }));
 
     const createdLists = await List.insertMany(defaultLists);
@@ -38,7 +37,6 @@ async function create(req, res) {
     res.status(400).json({ message: err.message });
   }
 }
-
 
 async function login(req, res) {
   try {
@@ -75,10 +73,7 @@ async function createList(req, res) {
     user.lists.push(newList._id);
     await user.save();
 
-    console.log('New list created:', newList);
-    console.log('User updated with new list:', user);
-
-    res.json(user);
+    res.json(newList);
   } catch (err) {
     console.error('Error creating list:', err);
     res.status(400).json({ message: err.message });
@@ -130,23 +125,21 @@ async function addBookToList(req, res) {
   }
 }
 
-async function updateUser(req, res) {
+async function getListByName(req, res) {
   try {
-    const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user._id).populate({
+      path: 'lists',
+      populate: { path: 'books' }
+    }).exec();
+    if (!user) throw new Error('User not found');
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+    const list = user.lists.find(list => list.listName === req.params.listName);
 
-    user.name = req.body.name;
-    user.email = req.body.email;
-    user.avatar = req.body.avatar;
-    await user.save();
+    if (!list) throw new Error('List not found');
 
-
-    res.json(user);
+    res.json(list);
   } catch (err) {
-    console.error('Error updating user:', err);
+    console.error('Error fetching list by name:', err);
     res.status(400).json({ message: err.message });
   }
 }
