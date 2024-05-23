@@ -50,7 +50,7 @@ const BookSearch = () => {
             />
             <button onClick={searchBooks}>Search</button>
             {error && <p>Error: {error}</p>}
-            <div>
+            <div className="book-cards-container">
                 {books && books.length > 0 ? (
                     books.map((book) => (
                         <BookCard key={book.id} book={book} />
