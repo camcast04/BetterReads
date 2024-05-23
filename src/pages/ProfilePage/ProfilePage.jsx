@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Select from 'react-select'; // Import the Select component
 import './ProfilePage.css';
 import BookCard from '../../components/BookCard/BookCard';
 import Modal from '../../components/Modal/Modal';
@@ -64,10 +63,13 @@ export default function ProfilePage({ user }) {
         <h2>Edit User Details</h2>
         <form action="">
           <label>Name:</label>
-          <input type="text" value="" />
+          <input type="text" value={name} />
           <label>Email:</label>
-          <input type="text" value="" />
+          <input type="email" value={email} />
           <label>Avatar:</label>
+          <select name="" id="">
+            <option value=""></option>
+          </select>
         </form>
         <button onClick={updateUserDetails}>Save Changes</button>
       </Modal>
