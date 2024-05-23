@@ -1,6 +1,6 @@
 // better-reads/src/pages/App/App.jsx
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { getUser } from '../../utilities/users-service';
 import './App.css';
@@ -16,6 +16,9 @@ import BookSearch from '../../components/BookSearch/BookSearch';
 export default function App() {
   const [user, setUser] = useState(getUser());
 
+  useEffect(() => {
+    setUser(getUser());
+  }, []);
 
   return (
     <main className="App">
@@ -26,7 +29,7 @@ export default function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/landing" element={<LandingPage />} />
             <Route path="/profile" element={<ProfilePage user={user} />} />
-            <Route path="/book/:bookId" element={<BookDetailsPage />} />
+            <Route path="/book/:bookId" element={<BookDetailsPage user={user}/>} />
             <Route path="/book-list/:listId" element={<BookListsPage />} />
             <Route path="/search" element={<BookSearch />} />
           </Routes>

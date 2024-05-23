@@ -14,7 +14,8 @@ router.post('/login', usersCtrl.login);
 // POST /api/users/:userId/lists/:listName
 router.post('/:userId/lists/:listName', ensureLoggedIn, usersCtrl.createList);
 // Route to handle adding a book to a user's list
-router.post('/me/lists/:listId/books', ensureLoggedIn, usersCtrl.addBookToList);
+// router.post('/lists/:listName/:listId/books', ensureLoggedIn, usersCtrl.addBookToList);
+router.post('/:userId/lists/:listName/books', ensureLoggedIn, usersCtrl.addBookToList);
 
 
 module.exports = router;

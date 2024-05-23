@@ -24,7 +24,7 @@ export default function ProfilePage({ user }) {
         <img
           style={{ borderRadius: '50%' }}
           src="https://placehold.co/100"
-          alt="user image"
+          alt={`${user.name}'s avatar`}
         />
         <h1>{user.name}</h1>
         <div className="user-subdetails">
