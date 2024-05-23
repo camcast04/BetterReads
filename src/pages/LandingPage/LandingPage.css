@@ -2,12 +2,14 @@
 
 .landing-container {
     font-family: Arial, sans-serif;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 15px
   }
   
   .landing-header nav {
     display: flex;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 1rem 1rem 0 1rem;
     background: #fdfcf7;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius:15px 15px 0% 0%; 
@@ -44,8 +46,9 @@
   
   .goodreads-section .button {
     display: inline-block;
-    margin: 1rem;
-    padding: 0.5rem 1rem;
+    font-size: .9rem;
+    margin: .5rem;
+    padding: 0.6rem 1rem;
     background: #282828;
     color: white;
     text-decoration: none;
