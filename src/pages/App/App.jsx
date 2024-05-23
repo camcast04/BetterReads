@@ -36,7 +36,7 @@ export default function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/profile" element={<ProfilePage user={user} />} />
                 <Route path="/book/:bookId" element={<BookDetailsPage />} />
-                <Route path="/book-list/:listId" element={<BookListsPage />} />
+                <Route path="/book-list/:listName" element={<BookListsPage />} />
                 <Route path="/search" element={<BookSearch />} />
               </Routes>
             </div>
