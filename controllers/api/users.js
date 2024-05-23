@@ -123,5 +123,9 @@ async function addBookToList(req, res) {
 // }
 
 function createJWT(user) {
-  return jwt.sign({ user: { _id: user._id } }, process.env.SECRET, { expiresIn: '24h' });
+  return jwt.sign(
+    { user: { _id: user._id, name: user.name, email: user.email } },
+    process.env.SECRET,
+    { expiresIn: '24h' }
+  );
 }
