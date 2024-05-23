@@ -14,9 +14,34 @@ module.exports = {
   addBookToList,
 };
 
+// async function create(req, res) {
+//   try {
+//     const user = await User.create(req.body);
+//     const token = createJWT(user);
+//     res.json(token);
+//   } catch (err) {
+//     console.error('Error creating user:', err);
+//     res.status(400).json({ message: err.message });
+//   }
+// }
+
+
 async function create(req, res) {
   try {
     const user = await User.create(req.body);
+
+    const defaultLists = ['Read', 'To Read', 'DNF', 'Favorites'].map(listName => ({
+      listName,
+      user: user._id,
+      books: [],
+      is_default: true
+    }));
+
+    const createdLists = await List.insertMany(defaultLists);
+
+    user.lists = createdLists.map(list => list._id);
+    await user.save();
+
     const token = createJWT(user);
     res.json(token);
   } catch (err) {
@@ -24,6 +49,7 @@ async function create(req, res) {
     res.status(400).json({ message: err.message });
   }
 }
+
 
 async function login(req, res) {
   try {
@@ -71,6 +97,50 @@ async function createList(req, res) {
 }
 
 
+// async function addBookToList(req, res) {
+//   try {
+//     const user = await User.findById(req.user._id).populate('lists').exec();
+//     if (!user) throw new Error('User not found');
+
+//     const list = await List.findOne({ _id: { $in: user.lists }, listName: req.params.listName });
+//     if (!list) throw new Error('List not found');
+
+//     // Fetch book details from Google Books API
+//     const bookId = req.body.bookId;
+//     const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
+//     const url = `https://www.googleapis.com/books/v1/volumes/${bookId}?key=${apiKey}`;
+
+//     const response = await axios.get(url);
+//     const bookData = response.data;
+
+//     // Check if book already exists in the local database
+//     let book = await Book.findOne({ googleBooksId: bookId });
+
+//     if (!book) {
+//       // Create a new book record if it doesn't exist
+//       book = new Book({
+//         googleBooksId: bookId,
+//         title: bookData.volumeInfo.title,
+//         authors: bookData.volumeInfo.authors,
+//         publisher: bookData.volumeInfo.publisher,
+//         publishedDate: bookData.volumeInfo.publishedDate,
+//         description: bookData.volumeInfo.description,
+//         coverImage: bookData.volumeInfo.imageLinks?.thumbnail
+//       });
+//       await book.save();
+//     }
+
+//     list.books.push(book._id);
+//     await list.save();
+
+//     res.json(list);
+//   } catch (err) {
+//     console.error('Error adding book to list:', err);
+//     res.status(400).json({ message: err.message });
+//   }
+// }
+
+
 async function addBookToList(req, res) {
   try {
     const user = await User.findById(req.user._id).populate('lists').exec();
@@ -79,7 +149,6 @@ async function addBookToList(req, res) {
     const list = await List.findOne({ _id: { $in: user.lists }, listName: req.params.listName });
     if (!list) throw new Error('List not found');
 
-    // Fetch book details from Google Books API
     const bookId = req.body.bookId;
     const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
     const url = `https://www.googleapis.com/books/v1/volumes/${bookId}?key=${apiKey}`;
@@ -87,11 +156,9 @@ async function addBookToList(req, res) {
     const response = await axios.get(url);
     const bookData = response.data;
 
-    // Check if book already exists in the local database
     let book = await Book.findOne({ googleBooksId: bookId });
 
     if (!book) {
-      // Create a new book record if it doesn't exist
       book = new Book({
         googleBooksId: bookId,
         title: bookData.volumeInfo.title,
@@ -104,8 +171,10 @@ async function addBookToList(req, res) {
       await book.save();
     }
 
-    list.books.push(book._id);
-    await list.save();
+    if (!list.books.includes(book._id)) {
+      list.books.push(book._id);
+      await list.save();
+    }
 
     res.json(list);
   } catch (err) {
@@ -113,6 +182,7 @@ async function addBookToList(req, res) {
     res.status(400).json({ message: err.message });
   }
 }
+
 
 
 

@@ -1,13 +1,15 @@
 /* betterreads/src/components/NavBar/NavBar.css */
 
 .navbar {
+  position: fixed;
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 1.7rem;
+  width: 95%;
+  padding: 0 1rem;
   background: #fdfcf7;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 4px 0 0 4px rgba(0, 0, 0, 0.1);
   border-radius: 15px 15px 0 0;
 }
 
