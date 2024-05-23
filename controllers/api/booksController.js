@@ -44,7 +44,28 @@ const getBookDetails = async (req, res) => {
     }
 };
 
+const createBook = async (req, res) => {
+    try {
+        const { title, authors, description, datePublished, bookCover } = req.body;
+        const book = new Book({
+            title,
+            authors,
+            description,
+            datePublished,
+            bookCover,
+        });
+
+        await book.save();
+        res.status(201).json(book);
+    } catch (err) {
+        console.error('Error creating book:', err);
+        res.status(400).json({ message: err.message });
+    }
+};
+
+
 module.exports = {
     getBooks,
-    getBookDetails
+    getBookDetails,
+    createBook
 };
