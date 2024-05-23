@@ -11,6 +11,8 @@ export default function ProfilePage({ user }) {
   const [avatar, setAvatar] = useState(user.avatar || '');
   const [error, setError] = useState(null);
 
+  const defaultAvatar = 'images/avatars/woman_15.svg';
+
   const toggleEditModal = () => {
     setIsEditModalOpen(!isEditModalOpen);
   };
@@ -37,12 +39,13 @@ export default function ProfilePage({ user }) {
   };
 
   return (
-    <div className="container">
+    <div style={{ marginTop: '100px' }} className="container">
       <div className="user-info-box">
         <img
           style={{ borderRadius: '50%' }}
-          src={avatar || 'https://via.placeholder.com/150'}
+          src={avatar || defaultAvatar}
           alt={`${user.name}'s avatar`}
+          className="avatar"
         />
         <h1>{name}</h1>
         <div className="user-subdetails">
