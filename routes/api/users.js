@@ -17,6 +17,8 @@ router.post('/:userId/lists/:listName', ensureLoggedIn, usersCtrl.createList);
 router.post('/me/lists/:listName/books', ensureLoggedIn, usersCtrl.addBookToList);
 // Route to fetch a specific list
 router.get('/me/lists/:listName', ensureLoggedIn, usersCtrl.getListByName);
+// Route to fetch all lists for the current user
+router.get('/me/lists', ensureLoggedIn, usersCtrl.getLists);
 
 module.exports = router;
-;
+

@@ -1,6 +1,7 @@
 // better-reads/src/pages/BookListsPage/BookListsPage.jsx
 
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import sendRequest from '../../utilities/send-request';
 import BookCard from '../../components/BookCard/BookCard';
 import './BookListsPage.css';
@@ -37,15 +38,19 @@ export default function BookListsPage() {
         <div key={index} className="book-list">
           <h2>{list.listName}</h2>
           <div className="books-row">
-            {list.books.map((book, bookIndex) => (
+            {list.books.slice(0, 4).map((book, bookIndex) => (
               <BookCard key={bookIndex} book={book} />
             ))}
           </div>
+          <button>
+            <Link to={`/booklists/${list._id}`}>See More</Link>
+          </button>
         </div>
       ))}
     </div>
   );
 }
+
 
 
 

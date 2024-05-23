@@ -11,6 +11,7 @@ module.exports = {
   login,
   createList,
   addBookToList,
+  getLists,
   getListByName,
 };
 
@@ -121,6 +122,19 @@ async function addBookToList(req, res) {
     res.json(list);
   } catch (err) {
     console.error('Error adding book to list:', err);
+    res.status(400).json({ message: err.message });
+  }
+}
+
+async function getLists(req, res) {
+  try {
+    const user = await User.findById(req.user._id).populate('lists').exec();
+    if (!user) throw new Error('User not found');
+
+    const lists = await List.find({ user: user._id }).populate('books').exec();
+    res.json(lists);
+  } catch (err) {
+    console.error('Error fetching all lists:', err);
     res.status(400).json({ message: err.message });
   }
 }
