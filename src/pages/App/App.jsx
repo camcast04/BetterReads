@@ -26,7 +26,7 @@ export default function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/landing" element={<LandingPage />} />
             <Route path="/profile" element={<ProfilePage user={user} />} />
-            <Route path="/book/:bookId" element={<BookDetailsPage />} />
+            <Route path="/book/:bookId" element={<BookDetailsPage user={user}/>} />
             <Route path="/book-list/:listId" element={<BookListsPage />} />
             <Route path="/search" element={<BookSearch />} />
           </Routes>

@@ -16,7 +16,7 @@ module.exports = function(req, res, next) {
       console.log('Invalid token');
       return res.status(401).json({ message: 'Unauthorized: Invalid token' });
     }
-    req.user = decoded;
+    req.user = decoded.user;
     console.log('Token verified, user:', req.user);
     next();
   });
