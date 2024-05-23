@@ -8,8 +8,6 @@ export async function signUp(userData) {
 }
 
 export async function login(credentials) {
-  // Delegate the AJAX request to the users-api.js
-  // module.
   const token = await usersAPI.login(credentials);
   localStorage.setItem('token', token);
   return getUser();
@@ -36,4 +34,8 @@ export function getToken() {
 export function getUser() {
   const token = getToken();
   return token ? JSON.parse(atob(token.split('.')[1])).user : null;
+}
+
+export async function updateUser(userData) {
+  return await usersAPI.updateUser(userData);
 }
