@@ -1,0 +1,64 @@
+/* better-reads/src/pages/FeaturePage/FeaturePage.css */
+
+.feature-page {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-section {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+
+.hero-image {
+  width: 100%;
+  height: auto;
+}
+
+.content {
+  display: flex;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 200px; /* Adjust if needed to accommodate the SidePanel width */
+}
+
+.authors-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.author-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+
+.author-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.books-carousel {
+  display: flex;
+  gap: 1rem;
+}
+
+.book-link {
+  text-decoration: none;
+}
+
+.book-cover {
+  width: 100px;
+  height: 150px;
+  object-fit: cover;
+}

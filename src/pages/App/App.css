@@ -6,7 +6,7 @@
   text-align: center;
 }
 
-h1, h2{
+h1, h2 {
   font-family: "Noto Serif", serif;
 }
 
@@ -44,3 +44,14 @@ h1, h2{
     transform: rotate(360deg);
   }
 }
+
+.content {
+  display: flex;
+  margin-top: .3rem; 
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 200px;
+}
+

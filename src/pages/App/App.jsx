@@ -1,7 +1,7 @@
 // better-reads/src/pages/App/App.jsx
 
-import { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { getUser } from '../../utilities/users-service';
 import './App.css';
 import AuthPage from '../AuthPage/AuthPage';
@@ -12,32 +12,41 @@ import BookListsPage from '../BookListsPage/BookListsPage';
 import ProfilePage from '../ProfilePage/ProfilePage';
 import LandingPage from '../LandingPage/LandingPage';
 import BookSearch from '../../components/BookSearch/BookSearch';
+import FeaturePage from '../FeaturePage/FeaturePage';
+import SidePanel from '../../components/SidePanel/SidePanel';
 
 export default function App() {
   const [user, setUser] = useState(getUser());
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    setUser(getUser());
-  }, []);
+  const handleUserSet = (user) => {
+    setUser(user);
+    navigate('/'); 
+  };
 
   return (
     <main className="App">
       {user ? (
         <>
-          <NavBar user={user} setUser={setUser} />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/landing" element={<LandingPage />} />
-            <Route path="/profile" element={<ProfilePage user={user} />} />
-            <Route path="/book/:bookId" element={<BookDetailsPage user={user}/>} />
-            <Route path="/book-list/:listId" element={<BookListsPage />} />
-            <Route path="/search" element={<BookSearch />} />
-          </Routes>
+          <div className="content">
+            <NavBar user={user} setUser={setUser} />
+            <SidePanel />
+            <div className="main-content">
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/profile" element={<ProfilePage user={user} />} />
+                <Route path="/book/:bookId" element={<BookDetailsPage />} />
+                <Route path="/book-list/:listId" element={<BookListsPage />} />
+                <Route path="/search" element={<BookSearch />} />
+              </Routes>
+            </div>
+          </div>
         </>
       ) : (
         <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/auth" element={<AuthPage setUser={setUser} />} />
+          <Route path="/" element={<LandingPage setUser={handleUserSet} />} />
+          <Route path="/auth" element={<AuthPage setUser={handleUserSet} />} />
+          <Route path="/features" element={<FeaturePage />} />
         </Routes>
       )}
     </main>
