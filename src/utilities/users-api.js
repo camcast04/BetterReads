@@ -1,5 +1,4 @@
 //better-reads/src/utilities/user-api.js
-
 import sendRequest from './send-request';
 const BASE_URL = '/api/users';
 

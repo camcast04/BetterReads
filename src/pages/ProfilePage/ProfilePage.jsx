@@ -1,5 +1,5 @@
-// better-reads/src/pages/ProfilePage/ProfilePage.jsx
 import React, { useState } from 'react';
+import Select from 'react-select'; // Import the Select component
 import './ProfilePage.css';
 import BookCard from '../../components/BookCard/BookCard';
 import Modal from '../../components/Modal/Modal';
@@ -8,6 +8,7 @@ export default function ProfilePage({ user }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
+  const [avatar, setAvatar] = useState('');
 
   const toggleEditModal = () => {
     setIsEditModalOpen(!isEditModalOpen);
@@ -23,7 +24,7 @@ export default function ProfilePage({ user }) {
       <div className="user-info-box">
         <img
           style={{ borderRadius: '50%' }}
-          src="https://placehold.co/100"
+          src="../../../public/images/avatars/woman_01.svg"
           alt={`${user.name}'s avatar`}
         />
         <h1>{user.name}</h1>
@@ -39,36 +40,23 @@ export default function ProfilePage({ user }) {
       </div>
       <div className="recent-reads">
         <h2>Recently Read</h2>
-        <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
       </div>
       <div className="lists">
         <h2>Book Lists</h2>
         <div className="list">
           <h3>Reading</h3>
           <BookCard />
-          <BookCard />
-          <BookCard />
         </div>
         <div className="list">
           <h3>Next Up</h3>
-          <BookCard />
-          <BookCard />
           <BookCard />
         </div>
         <div className="list">
           <h3>Favorites</h3>
           <BookCard />
-          <BookCard />
-          <BookCard />
         </div>
         <div className="list">
           <h3>Never Again</h3>
-          <BookCard />
-          <BookCard />
           <BookCard />
         </div>
       </div>
@@ -80,18 +68,6 @@ export default function ProfilePage({ user }) {
           <label>Email:</label>
           <input type="text" value="" />
           <label>Avatar:</label>
-          <select name="" id="">
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-          </select>
-          <option value=""></option>
         </form>
         <button onClick={updateUserDetails}>Save Changes</button>
       </Modal>
