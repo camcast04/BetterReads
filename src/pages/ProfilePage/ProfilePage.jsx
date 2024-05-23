@@ -99,7 +99,7 @@ export default function ProfilePage({ user }) {
             {avatarPaths.map((path, index) => {
               return (
                 <option key={index} value={path}>
-                  {path}
+                  {index}
                 </option>
               );
             })}
