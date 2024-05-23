@@ -1,6 +1,6 @@
 export const avatarPaths = [
   'images/avatars/man_01.svg',
-  'images/avatars/man_01.svg',
+  'images/avatars/man_02.svg',
   'images/avatars/man_03.svg',
   'images/avatars/man_04.svg',
   'images/avatars/man_05.svg',
@@ -29,4 +29,9 @@ export const avatarPaths = [
   'images/avatars/woman_13.svg',
   'images/avatars/woman_14.svg',
   'images/avatars/woman_15.svg',
+];
+
+export const avatarInfo = [
+  { name: 'Joe', path: 'images/avatars/man_01.svg' },
+  { name: 'Jerry', path: 'images/avatars/man_02.svg' },
 ];
