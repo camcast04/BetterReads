@@ -59,7 +59,7 @@ const BookSearch = () => {
                         <BookCard key={book.id} book={book} />
                     ))
                 ) : (
-                    <p>In May, search for Asian or Pacific Islander Authors</p>
+                    <p>In May, try searching for Asian or Pacific Islander Authors</p>
                 )}
             </div>
         </div>
