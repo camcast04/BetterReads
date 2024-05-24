@@ -23,4 +23,6 @@ router.get('/me/lists', ensureLoggedIn, usersCtrl.getLists);
 router.get('/:userId', ensureLoggedIn, usersCtrl.getUser); 
 router.put('/update', ensureLoggedIn, usersCtrl.updateUser);
 
+router.delete('/me/lists/:listName/books/:bookId', ensureLoggedIn, usersCtrl.deleteBookFromList);
+
 module.exports = router;

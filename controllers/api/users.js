@@ -16,7 +16,9 @@ module.exports = {
   updateUser,
   getUser, 
   getListByName,
+  deleteBookFromList,
 };
+
 
 async function create(req, res) {
   try {
@@ -279,6 +281,37 @@ async function getListByName(req, res) {
   }
 }
 
+
+async function deleteBookFromList(req, res) {
+  console.log('deleteBookFromList called');
+  try {
+    const user = await User.findById(req.user._id).populate('lists').exec();
+    if (!user) throw new Error('User not found');
+    console.log('User found:', JSON.stringify(user, null, 2));
+
+    const list = await List.findOne({
+      _id: { $in: user.lists },
+      listName: req.params.listName,
+    }).populate('books');
+    if (!list) throw new Error('List not found');
+    console.log('List found:', JSON.stringify(list, null, 2));
+
+    const bookId = req.params.bookId;
+    console.log(`Book ID to delete: ${bookId}`);
+
+    const bookIndex = list.books.findIndex((b) => b.equals(bookId));
+    if (bookIndex === -1) throw new Error('Book not found in list');
+    list.books.splice(bookIndex, 1);
+    await list.save();
+    console.log('List saved after removing book:', JSON.stringify(list, null, 2));
+
+    res.json(list);
+  } catch (err) {
+    console.error('Error removing book from list:', err);
+    res.status(400).json({ message: err.message });
+  }
+}
+
 async function getUser(req, res) {
   try {
     const user = await User.findById(req.params.userId);
@@ -289,6 +322,7 @@ async function getUser(req, res) {
     res.status(400).json({ message: err.message });
   }
 }
+
 
 async function updateUser(req, res) {
   try {
