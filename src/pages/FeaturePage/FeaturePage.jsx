@@ -1,4 +1,4 @@
-// betterreads/pages/FeaturePage/FeaturePage.jsx
+// betterreads/pages/FeaturePage/FeaturePage.jsx **
 
 import React from 'react';
 import { Link } from 'react-router-dom';
