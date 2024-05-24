@@ -84,36 +84,67 @@ export default function BookDetailsPage({ user }) {
 
   return (
     <div className="book-details-page">
-      <div className="book-info">
-        <h1>{bookDetails.title}</h1>
+      <div className="book-card book-info">
         {bookDetails.coverImage && (
           <img
             src={bookDetails.coverImage}
             alt={`${bookDetails.title} cover`}
           />
         )}
-        <p>
-          <strong>Authors:</strong> {bookDetails.authors.join(', ')}
-        </p>
-        <p>
-          <strong>Publisher:</strong> {bookDetails.publisher}
-        </p>
-        <p>
-          <strong>Published Date:</strong> {bookDetails.publishedDate}
-        </p>
-        <p>{cleanDescription}</p>
-        <select
-          value={selectedList}
-          onChange={(e) => setSelectedList(e.target.value)}
-        >
-          {lists.map((list) => (
-            <option key={list._id} value={list.listName}>
-              {list.listName}
-            </option>
-          ))}
-        </select>
-        <button onClick={handleAddToList}>Add to List</button>
+        <div className="book-card-content">
+          <h1>{bookDetails.title}</h1>
+          <p><strong>Authors:</strong> {bookDetails.authors.join(', ')}</p>
+          <p><strong>Publisher:</strong> {bookDetails.publisher}</p>
+          <p><strong>Published Date:</strong> {bookDetails.publishedDate}</p>
+          <p className="description">{cleanDescription}</p>
+          <select
+            value={selectedList}
+            onChange={(e) => setSelectedList(e.target.value)}
+          >
+            {lists.map((list) => (
+              <option key={list._id} value={list.listName}>
+                {list.listName}
+              </option>
+            ))}
+          </select>
+          <button onClick={handleAddToList}>Add to List</button>
+        </div>
       </div>
     </div>
   );
 }
+
+//   <div className="book-details-page">
+//     <div className="book-info">
+//       <h1>{bookDetails.title}</h1>
+//       {bookDetails.coverImage && (
+//         <img
+//           src={bookDetails.coverImage}
+//           alt={`${bookDetails.title} cover`}
+//         />
+//       )}
+//       <p>
+//         <strong>Authors:</strong> {bookDetails.authors.join(', ')}
+//       </p>
+//       <p>
+//         <strong>Publisher:</strong> {bookDetails.publisher}
+//       </p>
+//       <p>
+//         <strong>Published Date:</strong> {bookDetails.publishedDate}
+//       </p>
+//       <p>{cleanDescription}</p>
+//       <select
+//         value={selectedList}
+//         onChange={(e) => setSelectedList(e.target.value)}
+//       >
+//         {lists.map((list) => (
+//           <option key={list._id} value={list.listName}>
+//             {list.listName}
+//           </option>
+//         ))}
+//       </select>
+//       <button onClick={handleAddToList}>Add to List</button>
+//     </div>
+//   </div>
+// );
+
