@@ -13,22 +13,25 @@ module.exports = {
   addBookToList,
   getLists,
   getListByName,
+  updateUser,
 };
 
 async function create(req, res) {
   try {
     const user = await User.create(req.body);
 
-    const defaultLists = ['Read', 'To Read', 'DNF', 'Favorites'].map(listName => ({
-      listName,
-      user: user._id,
-      books: [],
-      is_default: true,
-    }));
+    const defaultLists = ['Read', 'To Read', 'DNF', 'Favorites'].map(
+      (listName) => ({
+        listName,
+        user: user._id,
+        books: [],
+        is_default: true,
+      })
+    );
 
     const createdLists = await List.insertMany(defaultLists);
 
-    user.lists = createdLists.map(list => list._id);
+    user.lists = createdLists.map((list) => list._id);
     await user.save();
 
     const token = createJWT(user);
@@ -141,19 +144,43 @@ async function getLists(req, res) {
 
 async function getListByName(req, res) {
   try {
-    const user = await User.findById(req.user._id).populate({
-      path: 'lists',
-      populate: { path: 'books' }
-    }).exec();
+    const user = await User.findById(req.user._id)
+      .populate({
+        path: 'lists',
+        populate: { path: 'books' },
+      })
+      .exec();
     if (!user) throw new Error('User not found');
 
-    const list = user.lists.find(list => list.listName === req.params.listName);
+    const list = user.lists.find(
+      (list) => list.listName === req.params.listName
+    );
 
     if (!list) throw new Error('List not found');
 
     res.json(list);
   } catch (err) {
     console.error('Error fetching list by name:', err);
+    res.status(400).json({ message: err.message });
+  }
+}
+
+async function updateUser(req, res) {
+  try {
+    const user = await User.findById(req.user._id);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    user.name = req.body.name;
+    user.email = req.body.email;
+    user.avatar = req.body.avatar;
+    await user.save();
+
+    res.json(user);
+  } catch (err) {
+    console.error('Error updating user:', err);
     res.status(400).json({ message: err.message });
   }
 }
