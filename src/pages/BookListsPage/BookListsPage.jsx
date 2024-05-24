@@ -39,7 +39,7 @@
 //   );
 // }
 
-// better-reads/src/pages/BookListsPage/BookListsPage.jsx
+// // better-reads/src/pages/BookListsPage/BookListsPage.jsx
 import React, { useEffect, useState } from 'react';
 import sendRequest from '../../utilities/send-request';
 import './BookListsPage.css';
@@ -90,16 +90,27 @@ function BookListItem({ book, listName }) {
     }
   };
 
+  //   return (
+  //     <div className="book-item">
+  //       <h3>{book.title}</h3>
+  //       <p>{book.authors.join(', ')}</p>
+  //       <button onClick={handleAddToFavorites}>Add to Favorites</button>
+  //     </div>
+  //   );
+  // }
+
   return (
-    <div className="book-item">
-      <h3>{book.title}</h3>
-      <p>{book.authors.join(', ')}</p>
-      <button onClick={handleAddToFavorites}>Add to Favorites</button>
+    <div className="book-card">
+      <img src={book.coverImage} alt={book.title} />
+      <div className="book-card-content">
+        <h1>{book.title}</h1>
+        <p>{book.authors.join(', ')}</p>
+        <button onClick={handleAddToFavorites}>Add to Favorites</button>
+        {/* <button onClick={handleRemoveFromList}>Remove</button> */}
+      </div>
     </div>
   );
 }
-
-
 
 
 

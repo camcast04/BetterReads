@@ -85,7 +85,89 @@ async function createList(req, res) {
     res.status(400).json({ message: err.message });
   }
 }
+// THIS ONE PREVIOUSLY WORKED... I THINK
+// async function addBookToList(req, res) {
+//   console.log('addBookToList called');
+//   try {
+//     console.log(`User ID from token: ${req.user._id}`);
 
+//     const user = await User.findById(req.user._id).populate('lists').exec();
+//     if (!user) throw new Error('User not found');
+//     console.log('User found:', JSON.stringify(user, null, 2));
+
+//     const list = await List.findOne({
+//       _id: { $in: user.lists },
+//       listName: req.params.listName,
+//     }).populate('books');
+//     if (!list) throw new Error('List not found');
+//     console.log('List found:', JSON.stringify(list, null, 2));
+
+//     const bookId = req.body.bookId;
+//     console.log(`Book ID to add: ${bookId}`);
+    
+//     const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
+//     const url = `https://www.googleapis.com/books/v1/volumes/${bookId}?key=${apiKey}`;
+//     console.log('Fetching book data from Google Books API with URL:', url);
+
+//     const response = await axios.get(url);
+//     const bookData = response.data;
+//     console.log('Book data fetched:', JSON.stringify(bookData, null, 2));
+
+//     let book = await Book.findOne({ googleBooksId: bookId });
+//     if (!book) {
+//       console.log('Book not found in database. Creating new book entry.');
+//       book = new Book({
+//         googleBooksId: bookId,
+//         title: bookData.volumeInfo.title,
+//         authors: bookData.volumeInfo.authors,
+//         publisher: bookData.volumeInfo.publisher,
+//         publishedDate: bookData.volumeInfo.publishedDate,
+//         description: bookData.volumeInfo.description,
+//         coverImage: bookData.volumeInfo.imageLinks?.thumbnail,
+//       });
+//       await book.save();
+//       console.log('New book created and saved:', JSON.stringify(book, null, 2));
+//     } else {
+//       console.log('Book already exists in database:', JSON.stringify(book, null, 2));
+//     }
+
+//     const isBookInList = list.books.some(b => b.equals(book._id));
+//     console.log(`Is book already in list: ${isBookInList}`);
+//     if (!isBookInList) {
+//       console.log(`Adding book ${book._id} to list ${list._id}`);
+//       list.books.push(book._id);
+//       await list.save();
+//       console.log('List saved after adding book:', JSON.stringify(list, null, 2));
+//     } else {
+//       console.log('Book already in list, not adding again.');
+//     }
+
+//     // Explicitly populate the books array before sending the response
+//     console.log(`Populating books for list ${list._id} after save...`);
+//     const updatedList = await List.findById(list._id).populate('books').exec();
+//     console.log('Updated list after populating books:', JSON.stringify(updatedList, null, 2));
+
+//     res.json(updatedList);
+//   } catch (err) {
+//     console.error('Error adding book to list:', err);
+//     res.status(400).json({ message: err.message });
+//   }
+// }
+
+// async function getLists(req, res) {
+//   try {
+//     const user = await User.findById(req.user._id).populate('lists').exec();
+//     if (!user) throw new Error('User not found');
+
+//     const lists = await List.find({ user: user._id }).populate('books').exec();
+//     res.json(lists);
+//   } catch (err) {
+//     console.error('Error fetching all lists:', err);
+//     res.status(400).json({ message: err.message });
+//   }
+// }
+
+//TESTING THIS ONE OUT
 async function addBookToList(req, res) {
   console.log('addBookToList called');
   try {
@@ -154,12 +236,19 @@ async function addBookToList(req, res) {
   }
 }
 
+
 async function getLists(req, res) {
   try {
-    const user = await User.findById(req.user._id).populate('lists').exec();
+    const user = await User.findById(req.user._id).exec();
     if (!user) throw new Error('User not found');
 
-    const lists = await List.find({ user: user._id }).populate('books').exec();
+    const lists = await List.find({ user: user._id })
+      .populate({
+        path: 'books',
+        select: 'googleBooksId title authors publisher',
+      })
+      .exec();
+
     res.json(lists);
   } catch (err) {
     console.error('Error fetching all lists:', err);
