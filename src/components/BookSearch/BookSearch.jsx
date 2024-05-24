@@ -5,39 +5,39 @@ import axios from 'axios';
 import BookCard from '../BookCard/BookCard';
 
 const BookSearch = () => {
-  const [query, setQuery] = useState('');
-  const [books, setBooks] = useState([]);
-  const [error, setError] = useState(null);
+    const [query, setQuery] = useState('');
+    const [books, setBooks] = useState([]);
+    const [error, setError] = useState(null);
 
-  const searchBooks = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        throw new Error('No token found');
-      }
+    const searchBooks = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                throw new Error('No token found');
+            }
 
-      const response = await axios.get(`/api/books?q=${query}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
+            const response = await axios.get(`/api/books?q=${query}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            if (response.data.items) {
+                const bookData = response.data.items.map(book => ({
+                    id: book.id,
+                    title: book.volumeInfo.title,
+                    authors: book.volumeInfo.authors || ['Unknown Author'],
+                    coverImage: book.volumeInfo.imageLinks?.thumbnail,
+                    description: book.volumeInfo.description
+                }));
+                setBooks(bookData);
+            } else {
+                setBooks([]);
+            }
+        } catch (error) {
+            setError(error.message);
         }
-      });
-
-      if (response.data.items) {
-        const bookData = response.data.items.map(book => ({
-          id: book.id,
-          title: book.volumeInfo.title,
-          authors: book.volumeInfo.authors || ['Unknown Author'],
-          coverImage: book.volumeInfo.imageLinks?.thumbnail,
-          description: book.volumeInfo.description
-        }));
-        setBooks(bookData);
-      } else {
-        setBooks([]);
-      }
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+    };
 
     return (
         <div>
