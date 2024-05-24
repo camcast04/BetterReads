@@ -22,7 +22,7 @@ export function getToken() {
   const token = localStorage.getItem('token');
   if (!token) return null;
   const payload = JSON.parse(atob(token.split('.')[1]));
-  // A JWT's exp is expressed in seconds, not miliseconds
+  // A JWT's exp is expressed in seconds, not milliseconds
   if (payload.exp * 1000 < Date.now()) {
     // Token has expired
     localStorage.removeItem('token');
@@ -31,11 +31,16 @@ export function getToken() {
   return token;
 }
 
-export function getUser() {
+export async function getUser() {
   const token = getToken();
-  return token ? JSON.parse(atob(token.split('.')[1])).user : null;
+  if (!token) return null;
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  // Fetch the latest user data
+  return usersAPI.getUser(payload.user._id);
 }
 
 export async function updateUser(userData) {
-  return await usersAPI.updateUser(userData);
+  const updatedUser = await usersAPI.updateUser(userData);
+  localStorage.setItem('token', updatedUser.token); // Update the token with the new user data
+  return updatedUser;
 }

@@ -12,6 +12,8 @@ module.exports = {
   createList,
   addBookToList,
   getLists,
+  updateUser,
+  getUser, // Add this line
   getListByName,
   updateUser,
 };
@@ -165,20 +167,31 @@ async function getListByName(req, res) {
   }
 }
 
+async function getUser(req, res) {
+  try {
+    const user = await User.findById(req.params.userId);
+    if (!user) throw new Error('User not found');
+    res.json(user);
+  } catch (err) {
+    console.error('Error fetching user:', err);
+    res.status(400).json({ message: err.message });
+  }
+}
+
 async function updateUser(req, res) {
   try {
     const user = await User.findById(req.user._id);
+    if (!user) throw new Error('User not found');
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.avatar = req.body.avatar || user.avatar;
 
-    user.name = req.body.name;
-    user.email = req.body.email;
-    user.avatar = req.body.avatar;
     await user.save();
 
-    res.json(user);
+    const token = createJWT(user); // Create a new token with updated user data
+    res.json({ user, token }); // Send updated user data and new token to the client
+
   } catch (err) {
     console.error('Error updating user:', err);
     res.status(400).json({ message: err.message });

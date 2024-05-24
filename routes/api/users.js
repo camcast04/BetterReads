@@ -23,7 +23,8 @@ router.post(
 router.get('/me/lists/:listName', ensureLoggedIn, usersCtrl.getListByName);
 // Route to fetch all lists for the current user
 router.get('/me/lists', ensureLoggedIn, usersCtrl.getLists);
-// Route to update a user's details
+
+router.get('/:userId', ensureLoggedIn, usersCtrl.getUser); 
 router.put('/update', ensureLoggedIn, usersCtrl.updateUser);
 
 module.exports = router;
