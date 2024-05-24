@@ -1,5 +1,3 @@
-// better-reads/src/components/NavBar/NavBar.jsx
-
 import { Link, useNavigate } from 'react-router-dom';
 import * as userService from '../../utilities/users-service';
 import './NavBar.css';
@@ -10,20 +8,25 @@ export default function NavBar({ user, setUser }) {
   function handleLogOut() {
     userService.logOut();
     setUser(null);
-    navigate('/'); 
+    navigate('/');
   }
 
   function handleLogoClick() {
     if (user) {
-      navigate('/'); 
+      navigate('/');
     } else {
-      navigate('/'); 
+      navigate('/');
     }
   }
 
   return (
     <nav className="navbar">
-      <img src="/images/Logo.png" alt="Logo" onClick={handleLogoClick} className="logo" />
+      <img
+        src="/images/Logo.png"
+        alt="Logo"
+        onClick={handleLogoClick}
+        className="logo"
+      />
       <div className="nav-links">
         <Link to="/books">My Books</Link>
         <Link to="/profile">Profile</Link>
@@ -36,4 +39,3 @@ export default function NavBar({ user, setUser }) {
     </nav>
   );
 }
-

@@ -1,5 +1,3 @@
-// better-reads/controllers/api/booksControllers.js
-
 const axios = require('axios');
 const Book = require('../../models/book');
 
@@ -13,7 +11,9 @@ const getBooks = async (req, res) => {
     res.json(response.data);
   } catch (error) {
     console.error('Error fetching data from Google Books API:', error);
-    res.status(500).json({ error: 'Error fetching data from Google Books API' });
+    res
+      .status(500)
+      .json({ error: 'Error fetching data from Google Books API' });
   }
 };
 
@@ -35,7 +35,9 @@ const getBookDetails = async (req, res) => {
     });
   } catch (error) {
     console.error('Error fetching book details from Google Books API:', error);
-    res.status(500).json({ error: 'Error fetching book details from Google Books API' });
+    res
+      .status(500)
+      .json({ error: 'Error fetching book details from Google Books API' });
   }
 };
 
@@ -49,7 +51,7 @@ const createBook = async (req, res) => {
       datePublished,
       bookCover,
     });
-    
+
     await book.save();
     res.status(201).json(book);
   } catch (err) {

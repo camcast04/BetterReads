@@ -1,9 +1,6 @@
-//betterreads/src/pages/BookListDetailsPage/ListDetailsPage.jsx
-
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import sendRequest from '../../utilities/send-request';
-import './BookListDetailsPage.css';
 import BookCard from '../../components/BookCard/BookCard';
 
 export default function BookListDetailsPage() {
@@ -39,7 +36,7 @@ export default function BookListDetailsPage() {
     <div className="book-list-details-page">
       <h1>{list.listName}</h1>
       <div className="book-cards-container">
-        {list.books.map(book => (
+        {list.books.map((book) => (
           <BookCard key={book._id} book={book} />
         ))}
       </div>

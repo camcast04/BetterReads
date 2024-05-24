@@ -1,5 +1,3 @@
-//betterreads/src/components/Modal/Modal.jsx
-
 import React from 'react';
 import './Modal.css';
 
@@ -9,7 +7,9 @@ export default function Modal({ children, isOpen, onClose }) {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="close-button" onClick={onClose}>X</button>
+        <button className="close-button" onClick={onClose}>
+          X
+        </button>
         {children}
       </div>
     </div>

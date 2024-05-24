@@ -1,5 +1,3 @@
-//better-reads/src/utilities/send-request.js
-
 export default async function sendRequest(url, method = 'GET', payload = null) {
   const options = { method };
   if (payload) {
@@ -21,11 +19,10 @@ export default async function sendRequest(url, method = 'GET', payload = null) {
   if (res.status === 401) {
     const refreshToken = localStorage.getItem('refreshToken');
     if (refreshToken) {
-
       const refreshRes = await fetch('/api/auth/refresh-token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ refreshToken })
+        body: JSON.stringify({ refreshToken }),
       });
 
       if (refreshRes.ok) {
@@ -41,4 +38,3 @@ export default async function sendRequest(url, method = 'GET', payload = null) {
   const errorMessage = await res.text();
   throw new Error(errorMessage || 'Bad Request');
 }
-
