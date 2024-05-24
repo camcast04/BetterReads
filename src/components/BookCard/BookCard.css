@@ -72,7 +72,7 @@
 
 .book-card button:hover {
   background-color: black;
-  color: white; /* Inverted text color */
+  color: white;
   border: 1px solid white;
 }
 
