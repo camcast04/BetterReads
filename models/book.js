@@ -1,18 +1,31 @@
 // better-reads/models/book.js
 
+// const mongoose = require('mongoose');
+// const Schema = mongoose.Schema;
+
+// const reviewAndRatingSchema = new Schema(
+//   {
+//     review: { type: String },
+//     rating: { type: Number, min: 0, max: 5 },
+//     user: { type: Schema.Types.ObjectId, ref: 'User' },
+//   },
+//   { timestamps: true }
+// );
+
+
+
+// const bookSchema = new Schema({
+//   googleBooksId: { type: String, required: true, unique: true },
+//   title: { type: String, required: true },
+//   authors: [String],
+//   publisher: String,
+//   publishedDate: String,
+//   description: String,
+//   coverImage: String,
+// });
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
-const reviewAndRatingSchema = new Schema(
-  {
-    review: { type: String },
-    rating: { type: Number, min: 0, max: 5 },
-    user: { type: Schema.Types.ObjectId, ref: 'User' },
-  },
-  { timestamps: true }
-);
-
-
 
 const bookSchema = new Schema({
   googleBooksId: { type: String, required: true, unique: true },
@@ -23,6 +36,9 @@ const bookSchema = new Schema({
   description: String,
   coverImage: String,
 });
+
+module.exports = mongoose.model('Book', bookSchema);
+
 
 
 
@@ -40,8 +56,8 @@ const bookSchema = new Schema({
 //   { timestamps: true }
 // );
 
-module.exports = mongoose.model('Book', bookSchema);
-module.exports = mongoose.model('ReviewAndRating', reviewAndRatingSchema);
+// module.exports = mongoose.model('Book', bookSchema);
+// module.exports = mongoose.model('ReviewAndRating', reviewAndRatingSchema);
 
 
 // const bookSchema = new Schema(

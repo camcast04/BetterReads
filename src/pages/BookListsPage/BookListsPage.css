@@ -6,6 +6,10 @@
   margin-bottom: 20px;
 }
 
+.book-item {
+  margin: 10px 0;
+}
+
 .books-row {
   display: flex;
   gap: 10px;
