@@ -1,4 +1,3 @@
-//better-reads/src/utilities/user-service.js
 import * as usersAPI from './users-api';
 
 export async function signUp(userData) {
@@ -18,13 +17,10 @@ export function logOut() {
 }
 
 export function getToken() {
-  // getItem will return null if the key does not exists
   const token = localStorage.getItem('token');
   if (!token) return null;
   const payload = JSON.parse(atob(token.split('.')[1]));
-  // A JWT's exp is expressed in seconds, not milliseconds
   if (payload.exp * 1000 < Date.now()) {
-    // Token has expired
     localStorage.removeItem('token');
     return null;
   }
@@ -35,12 +31,11 @@ export async function getUser() {
   const token = getToken();
   if (!token) return null;
   const payload = JSON.parse(atob(token.split('.')[1]));
-  // Fetch the latest user data
   return usersAPI.getUser(payload.user._id);
 }
 
 export async function updateUser(userData) {
   const updatedUser = await usersAPI.updateUser(userData);
-  localStorage.setItem('token', updatedUser.token); 
+  localStorage.setItem('token', updatedUser.token);
   return updatedUser;
 }

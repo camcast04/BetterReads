@@ -1,13 +1,12 @@
-/* betterreads/src/App/App.css */
-
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap');
 
 .App {
   text-align: center;
 }
 
-h1, h2 {
-  font-family: "Noto Serif", serif;
+h1,
+h2 {
+  font-family: 'Noto Serif', serif;
 }
 
 .App-logo {
@@ -47,11 +46,10 @@ h1, h2 {
 
 .content {
   display: flex;
-  margin-top: .3rem; 
+  margin-top: 0.3rem;
 }
 
 .main-content {
   flex: 1;
   margin-left: 200px;
 }
-

@@ -1,13 +1,10 @@
-/* betterreads/src/index.css */
-
-/* CSS Custom Properties */
 :root {
-  --white: #FFFFFF;
-  --tan-1: #FBF9F6;
-  --tan-2: #E7E2DD;
-  --tan-3: #E2D9D1;
+  --white: #ffffff;
+  --tan-1: #fbf9f6;
+  --tan-2: #e7e2dd;
+  --tan-3: #e2d9d1;
   --tan-4: #f8f7f3;
-  --orange: #F67F00;
+  --orange: #f67f00;
   --text-light: #968c84;
   --text-dark: #615954;
 }
@@ -29,7 +26,6 @@ body {
   text-align: right;
 }
 
-
 .flex-ctr-ctr {
   display: flex;
   justify-content: center;
@@ -50,9 +46,9 @@ body {
   align-items: center;
   background-color: var(--tan-1);
   color: var(--text-dark);
-  border: .1vmin solid var(--tan-3);
+  border: 0.1vmin solid var(--tan-3);
   border-radius: 1vmin;
-  padding: .6vmin;
+  padding: 0.6vmin;
   text-align: center;
   font-size: 2vmin;
 }
@@ -65,7 +61,6 @@ p.error-message {
 form {
   display: grid;
   gap: 1.25vmin;
-  /* color: var(--text-light); */
 }
 
 label {
@@ -77,35 +72,34 @@ label {
 input {
   padding: 1vmin;
   font-size: 2vmin;
-  border: .1vmin solid var(--tan-3);
-  border-radius: .5vmin;
+  border: 0.1vmin solid var(--tan-3);
+  border-radius: 0.5vmin;
   color: var(--text-dark);
-  background-image: none !important; 
+  background-image: none !important;
   outline: none;
 }
 
-
-
-button, a.button {
+button,
+a.button {
   font-size: 2vmin;
   font-weight: bold;
   text-decoration: none;
   text-align: center;
-  border: .1vmin solid var(--tan-2);
-  border-radius: .5vmin;
+  border: 0.1vmin solid var(--tan-2);
+  border-radius: 0.5vmin;
   outline: none;
   cursor: pointer;
   grid-column: span 2;
 }
 
-button[type="submit"] {
+button[type='submit'] {
   margin: 1vmin 0 0;
 }
 
 button {
   grid-column: span 1.5;
-  font-size: .9rem;
-  margin: .5rem;
+  font-size: 0.9rem;
+  margin: 0.5rem;
   padding: 0.6rem 1rem;
   background: #282828;
   color: white;

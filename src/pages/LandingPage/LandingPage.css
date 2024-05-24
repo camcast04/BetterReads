@@ -1,5 +1,3 @@
-/* better-reads/src/pages/LandingPage/LandingPage.css */
-
 .landing-container {
   font-family: Arial, sans-serif;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -15,11 +13,10 @@
   background: #fdfcf7;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 15px 15px 0 0;
-
 }
 
 .landing-header .logo {
-  height: 6rem; 
+  height: 6rem;
   cursor: pointer;
   margin: 0;
   padding: 0;

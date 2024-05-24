@@ -1,5 +1,3 @@
-//better-reads/src/components/SidePanel/SidePanel.jsx
-
 import { Link } from 'react-router-dom';
 import './SidePanel.css';
 

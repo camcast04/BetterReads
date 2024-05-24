@@ -1,5 +1,3 @@
-//betterreads/src/pages/ProfilePage/ProfilePage.jsx
-
 import React, { useState, useEffect } from 'react';
 import './ProfilePage.css';
 import BookCard from '../../components/BookCard/BookCard';
@@ -43,12 +41,16 @@ export default function ProfilePage({ user }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const updatedUser = await usersService.updateUser({ name, email, avatar });
+      const updatedUser = await usersService.updateUser({
+        name,
+        email,
+        avatar,
+      });
       setName(updatedUser.user.name);
       setEmail(updatedUser.user.email);
       setAvatar(updatedUser.user.avatar);
       toggleEditModal();
-      setError(null); // Clear any previous errors
+      setError(null);
     } catch (err) {
       setError('Failed to update user details');
     }
@@ -60,7 +62,6 @@ export default function ProfilePage({ user }) {
         <img
           style={{ borderRadius: '50%' }}
           src={avatar || 'https://placehold.co/100x120'}
-          //src={avatar || defaultAvatar}
           alt={`${name}'s avatar`}
           className="avatar"
         />
@@ -77,7 +78,6 @@ export default function ProfilePage({ user }) {
       </div>
       <div className="recent-reads">
         <h2>Recently Read</h2>
-        {/* Add the BookCard components for recently read books here */}
       </div>
       <div className="lists">
         <h2>Book Lists</h2>
