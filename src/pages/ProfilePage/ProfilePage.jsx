@@ -60,6 +60,7 @@ export default function ProfilePage({ user }) {
         <img
           style={{ borderRadius: '50%' }}
           src={avatar || 'https://placehold.co/100x120'}
+          //src={avatar || defaultAvatar}
           alt={`${name}'s avatar`}
           className="avatar"
         />

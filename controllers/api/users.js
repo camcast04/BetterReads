@@ -15,22 +15,25 @@ module.exports = {
   updateUser,
   getUser, // Add this line
   getListByName,
+  updateUser,
 };
 
 async function create(req, res) {
   try {
     const user = await User.create(req.body);
 
-    const defaultLists = ['Read', 'To Read', 'DNF', 'Favorites'].map(listName => ({
-      listName,
-      user: user._id,
-      books: [],
-      is_default: true,
-    }));
+    const defaultLists = ['Read', 'To Read', 'DNF', 'Favorites'].map(
+      (listName) => ({
+        listName,
+        user: user._id,
+        books: [],
+        is_default: true,
+      })
+    );
 
     const createdLists = await List.insertMany(defaultLists);
 
-    user.lists = createdLists.map(list => list._id);
+    user.lists = createdLists.map((list) => list._id);
     await user.save();
 
     const token = createJWT(user);
@@ -143,13 +146,17 @@ async function getLists(req, res) {
 
 async function getListByName(req, res) {
   try {
-    const user = await User.findById(req.user._id).populate({
-      path: 'lists',
-      populate: { path: 'books' }
-    }).exec();
+    const user = await User.findById(req.user._id)
+      .populate({
+        path: 'lists',
+        populate: { path: 'books' },
+      })
+      .exec();
     if (!user) throw new Error('User not found');
 
-    const list = user.lists.find(list => list.listName === req.params.listName);
+    const list = user.lists.find(
+      (list) => list.listName === req.params.listName
+    );
 
     if (!list) throw new Error('List not found');
 
@@ -184,6 +191,7 @@ async function updateUser(req, res) {
 
     const token = createJWT(user); // Create a new token with updated user data
     res.json({ user, token }); // Send updated user data and new token to the client
+
   } catch (err) {
     console.error('Error updating user:', err);
     res.status(400).json({ message: err.message });
