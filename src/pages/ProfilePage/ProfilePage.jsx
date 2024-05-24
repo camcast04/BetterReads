@@ -44,8 +44,8 @@ export default function ProfilePage({ user }) {
       <div className="user-info-box">
         <img
           style={{ borderRadius: '50%' }}
-          src={avatar}
-          alt={`${user.name}'s avatar`}
+          src={avatar || defaultAvatar}
+          alt={`${name}'s avatar`}
           className="avatar"
         />
         <h1>{name}</h1>
