@@ -10,14 +10,14 @@ export default function NavBar({ user, setUser }) {
   function handleLogOut() {
     userService.logOut();
     setUser(null);
-    navigate('/'); //landing page if logged out
+    navigate('/'); 
   }
 
   function handleLogoClick() {
     if (user) {
-      navigate('/'); //homepage
+      navigate('/'); 
     } else {
-      navigate('/'); //landing page
+      navigate('/'); 
     }
   }
 

@@ -41,6 +41,14 @@ export default function BookDetailsPage({ user }) {
     return <div>Loading...</div>;
   }
 
+  const stripHtmlTags = (html) => {
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    return div.textContent || div.innerText || '';
+  };
+
+  const cleanDescription = stripHtmlTags(bookDetails.description);
+
   return (
     <div className="book-details-page">
       <div className="book-info">
@@ -49,7 +57,7 @@ export default function BookDetailsPage({ user }) {
         <p><strong>Authors:</strong> {bookDetails.authors.join(', ')}</p>
         <p><strong>Publisher:</strong> {bookDetails.publisher}</p>
         <p><strong>Published Date:</strong> {bookDetails.publishedDate}</p>
-        <p>{bookDetails.description}</p>
+        <p>{cleanDescription}</p>
         <select value={selectedList} onChange={(e) => setSelectedList(e.target.value)}>
           <option value="Favorites">Favorites</option>
           <option value="Read">Read</option>
