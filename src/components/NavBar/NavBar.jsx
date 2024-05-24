@@ -1,3 +1,5 @@
+//betterreads/routes/auth.js
+
 import { Link, useNavigate } from 'react-router-dom';
 import * as userService from '../../utilities/users-service';
 import './NavBar.css';

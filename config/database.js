@@ -1,4 +1,4 @@
-//better-reads/config/database.js
+//better-reads/config/database.js *
 
 const mongoose = require('mongoose');
 

@@ -1,3 +1,5 @@
+// betterreads/src/components/BookCard/BookCard.jsx *
+
 import { Link } from 'react-router-dom';
 import './BookCard.css';
 

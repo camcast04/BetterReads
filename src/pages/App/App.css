@@ -1,7 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap');
+/* betterreads/src/pages/App/App.css **/
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 .App {
   text-align: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+.content {
+  display: flex;
+  margin-top: .5rem;
+  position: relative;
+}
+
+.main-content {
+  margin-top: 7vh;
+  padding-top: 2vh;
+  height: 87vh;
+  padding-left: 12vh;
+  padding-right: 3vh;
+  margin-left: 20vw;
+  margin-right: .7rem;
+  background: #fdfcf7;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 15px 15px;
 }
 
 h1,
@@ -9,15 +31,20 @@ h2 {
   font-family: 'Noto Serif', serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.App-link {
+  color: #61dafb;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
 .App-header {
@@ -31,25 +58,3 @@ h2 {
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.content {
-  display: flex;
-  margin-top: 0.3rem;
-}
-
-.main-content {
-  flex: 1;
-  margin-left: 200px;
-}

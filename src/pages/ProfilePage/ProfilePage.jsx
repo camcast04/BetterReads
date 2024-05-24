@@ -1,3 +1,5 @@
+// betterreads/src/pages/ProfilePage/ProfilePage.jsx **
+
 import React, { useState, useEffect } from 'react';
 import './ProfilePage.css';
 import BookCard from '../../components/BookCard/BookCard';
