@@ -12,18 +12,33 @@ const reviewAndRatingSchema = new Schema(
   { timestamps: true }
 );
 
-const bookSchema = new Schema(
-  {
-    googleBooksId: { type: String, required: true, unique: true },
-    title: { type: String, required: true },
-    authors: [{ type: String, required: true }],
-    description: { type: String },
-    publishedDate: { type: Date },
-    coverImage: { type: String },
-    reviewsAndRatings: [reviewAndRatingSchema],
-  },
-  { timestamps: true }
-);
+
+
+const bookSchema = new Schema({
+  googleBooksId: { type: String, required: true, unique: true },
+  title: { type: String, required: true },
+  authors: [String],
+  publisher: String,
+  publishedDate: String,
+  description: String,
+  coverImage: String,
+});
+
+
+
+
+// const bookSchema = new Schema(
+//   {
+//     googleBooksId: { type: String, required: true, unique: true },
+//     title: { type: String, required: true },
+//     authors: [{ type: String, required: true }],
+//     description: { type: String },
+//     publishedDate: { type: Date },
+//     coverImage: { type: String },
+//     reviewsAndRatings: [reviewAndRatingSchema],
+//   },
+//   { timestamps: true }
+// );
 
 module.exports = mongoose.model('Book', bookSchema);
 module.exports = mongoose.model('ReviewAndRating', reviewAndRatingSchema);
