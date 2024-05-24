@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import sendRequest from '../../utilities/send-request';
-import BookCard from '../../components/BookCard/BookCard';
 import './BookListsPage.css';
 
 export default function BookListsPage() {
@@ -27,29 +26,19 @@ export default function BookListsPage() {
     return <div>Error: {error}</div>;
   }
 
-  if (!lists.length) {
-    return <div>No lists available</div>;
-  }
-
   return (
     <div className="book-lists-page">
-      <h1>My Book Lists</h1>
-      {lists.map((list, index) => (
-        <div key={index} className="book-list">
+      <h1>Your Book Lists</h1>
+      {lists.map(list => (
+        <div key={list._id} className="book-list">
           <h2>{list.listName}</h2>
-          <div className="books-row">
-            {list.books.slice(0, 4).map((book, bookIndex) => (
-              <BookCard key={bookIndex} book={book} />
-            ))}
-          </div>
-          <button>
-            <Link to={`/booklists/${list._id}`}>See More</Link>
-          </button>
+          <Link to={`/lists/${list.listName}`}>View List</Link>
         </div>
       ))}
     </div>
   );
 }
+
 
 
 
