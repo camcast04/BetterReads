@@ -13,3 +13,7 @@ export async function login(credentials) {
 export async function updateUser(userData) {
   return sendRequest(`${BASE_URL}/update`, 'PUT', userData);
 }
+
+export async function getUser(userId) {
+  return sendRequest(`${BASE_URL}/${userId}`);
+}

@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+//betterreads/src/pages/ProfilePage/ProfilePage.jsx
+
+import React, { useState, useEffect } from 'react';
 import './ProfilePage.css';
 import BookCard from '../../components/BookCard/BookCard';
 import Modal from '../../components/Modal/Modal';
@@ -12,7 +14,20 @@ export default function ProfilePage({ user }) {
   const [avatar, setAvatar] = useState(user.avatar || '');
   const [error, setError] = useState(null);
 
-  const defaultAvatar = 'https://placehold.co/100';
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const updatedUser = await usersService.getUser();
+        setName(updatedUser.name);
+        setEmail(updatedUser.email);
+        setAvatar(updatedUser.avatar);
+      } catch (err) {
+        setError('Failed to fetch user details');
+      }
+    }
+
+    fetchUser();
+  }, []);
 
   const toggleEditModal = () => {
     setIsEditModalOpen(!isEditModalOpen);
@@ -28,12 +43,12 @@ export default function ProfilePage({ user }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setName((prevName) => name);
-      setEmail((prevEmail) => email);
-      setAvatar((prevAvatar) => avatar);
-
-      await usersService.updateUser({ name, email, avatar });
+      const updatedUser = await usersService.updateUser({ name, email, avatar });
+      setName(updatedUser.user.name);
+      setEmail(updatedUser.user.email);
+      setAvatar(updatedUser.user.avatar);
       toggleEditModal();
+      setError(null); // Clear any previous errors
     } catch (err) {
       setError('Failed to update user details');
     }
@@ -44,8 +59,8 @@ export default function ProfilePage({ user }) {
       <div className="user-info-box">
         <img
           style={{ borderRadius: '50%' }}
-          src={avatar}
-          alt={`${user.name}'s avatar`}
+          src={avatar || 'https://placehold.co/100x120'}
+          alt={`${name}'s avatar`}
           className="avatar"
         />
         <h1>{name}</h1>
@@ -61,6 +76,7 @@ export default function ProfilePage({ user }) {
       </div>
       <div className="recent-reads">
         <h2>Recently Read</h2>
+        {/* Add the BookCard components for recently read books here */}
       </div>
       <div className="lists">
         <h2>Book Lists</h2>
@@ -96,13 +112,11 @@ export default function ProfilePage({ user }) {
           />
           <label>Avatar:</label>
           <select name="avatar" value={avatar} onChange={handleChange}>
-            {avatarPaths.map((path, index) => {
-              return (
-                <option key={index} value={path}>
-                  {index + 1}
-                </option>
-              );
-            })}
+            {avatarPaths.map((path, index) => (
+              <option key={index} value={path}>
+                {index + 1}
+              </option>
+            ))}
           </select>
           <button type="submit">Save Changes</button>
         </form>
