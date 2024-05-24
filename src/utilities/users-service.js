@@ -41,6 +41,6 @@ export async function getUser() {
 
 export async function updateUser(userData) {
   const updatedUser = await usersAPI.updateUser(userData);
-  localStorage.setItem('token', updatedUser.token); // Update the token with the new user data
+  localStorage.setItem('token', updatedUser.token); 
   return updatedUser;
 }
