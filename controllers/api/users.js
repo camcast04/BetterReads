@@ -163,6 +163,23 @@ async function addBookToList(req, res) {
   }
 }
 
+// async function getLists(req, res) {
+//   try {
+//     const user = await User.findById(req.user._id).exec();
+//     if (!user) throw new Error(‘User not found’);
+//     const lists = await List.find({ user: user._id })
+//       .populate({
+//         path: ‘books’,
+//         select: ‘googleBooksId title authors publisher coverImage’,
+//       })
+//       .exec();
+//     res.json(lists);
+//   } catch (err) {
+//     console.error(‘Error fetching all lists:’, err);
+//     res.status(400).json({ message: err.message });
+//   }
+// }
+
 async function getLists(req, res) {
   try {
     const user = await User.findById(req.user._id).exec();
@@ -171,7 +188,7 @@ async function getLists(req, res) {
     const lists = await List.find({ user: user._id })
       .populate({
         path: 'books',
-        select: 'googleBooksId title authors publisher',
+        select: 'googleBooksId title authors publisher coverImage',
       })
       .exec();
 
