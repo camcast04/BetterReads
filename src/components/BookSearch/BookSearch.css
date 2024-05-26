@@ -1,5 +1,7 @@
+/* betterreads/src/components/BookSearch/Booksearch.css **/
+
 .book-search-container {
-  padding-top: 7rem;
+  padding: 2rem;
   text-align: center;
 }
 
