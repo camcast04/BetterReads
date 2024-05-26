@@ -4,7 +4,7 @@
   position: fixed;
   top: 0;
   left: 3%;
-  width: 94%; 
+  right:3%;
   height: 10vh;  
   padding: 1vh;
   font-family: Arial, Helvetica, sans-serif;
@@ -41,4 +41,84 @@
 .nav-links a:hover,
 .nav-links span:hover {
   text-decoration: underline;
+}
+
+/* Large Devices (desktops, 1200px and up) */
+@media (max-width: 1200px) {
+  .navbar {
+    left: 2%;
+    right: 2%;
+    padding: 0.5vh 1vh;
+  }
+
+  .logo {
+    height: 4rem;
+  }
+
+  .nav-links {
+    gap: 2.5rem;
+  }
+}
+
+/* Medium Devices (tablets, 768px and up) */
+@media (max-width: 768px) {
+  .navbar {
+    left: 1.5%;
+    right: 1.5%;
+    padding: 0.5vh 1vh;
+  }
+
+  .logo {
+    height: 3.5rem;
+  }
+
+  .nav-links {
+    gap: 2rem;
+  }
+}
+
+/* Small Devices (landscape phones, 576px and up) */
+@media (max-width: 576px) {
+  .navbar {
+    left: 1%;
+    right: 1%;
+    padding: 0.5vh 0.5vh;
+  }
+
+  .logo {
+    height: 3rem;
+  }
+
+  .nav-links {
+    gap: 1.5rem;
+  }
+
+  .nav-links a,
+  .nav-links span {
+    font-size: 0.9rem;
+  }
+}
+
+/* Extra Small Devices (portrait phones, less than 576px) */
+@media (max-width: 400px) {
+  .navbar {
+    left: 0.5%;
+    right: 0.5%;
+    padding: 0.5vh 0.5vh;
+  }
+
+  .logo {
+    height: 2.5rem;
+  }
+
+  .nav-links {
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-links a,
+  .nav-links span {
+    font-size: 0.8rem;
+  }
 }

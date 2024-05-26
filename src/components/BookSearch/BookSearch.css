@@ -39,6 +39,7 @@
 }
 
 .book-card {
-  /* flex: 0 1 calc(50% - 16px); */
+  flex: 0 1 calc(50% - 16px);
   margin: 8px;
 }
+
