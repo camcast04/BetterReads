@@ -5,8 +5,9 @@
   position: fixed;
   top: 10vh; 
   left: 3%;
-  width: 15vw; 
+  max-width: 200px; 
   height: 87vh;
+  margin-right: 100px;
   background: #fdfcf7;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 2px;
   padding: 2rem;
