@@ -14,9 +14,11 @@
 }
 
 .main-content {
+  position: fixed;
   margin-top: 7vh;
   padding-top: 2vh;
   height: 87vh;
+  overflow: hidden;
   padding-left: 12vh;
   padding-right: 3vh;
   margin-left: 20vw;
@@ -26,6 +28,12 @@
   border-radius: 0 0 15px 15px;
 }
 
+.main-content .inner-content {
+  height: 100%;
+  overflow-y: auto; 
+  padding-right: 1rem; 
+}
+
 h1,
 h2 {
   font-family: 'Noto Serif', serif;
@@ -33,18 +41,6 @@ h2 {
 
 .App-link {
   color: #61dafb;
-}
-
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-header {

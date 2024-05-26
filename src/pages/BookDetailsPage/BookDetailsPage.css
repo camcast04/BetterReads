@@ -10,12 +10,9 @@
 .book-card {
     display: flex;
     flex-direction: row;
-    /* Arrange content in a row */
     align-items: flex-start;
     width: 80vw;
-    /* Adjust the width to make it wider */
     max-width: 1000px;
-    /* Adjust the max-width as needed */
     padding: 30px;
     background: #fdfcf7;
     border-radius: 16px;
@@ -23,7 +20,6 @@
     transition: transform 0.3s ease-in-out;
     margin: 10px;
     color: #000;
-    /* Ensure the text color is black for readability */
 }
 
 .book-card:hover {
@@ -36,26 +32,20 @@
     justify-content: space-between;
     padding: 0 30px;
     flex-grow: 0;
-    /* Remove flex-grow to prevent content from stretching */
 }
 
 .book-card img {
     max-width: 200px;
-    /* Set a fixed max-width for the image */
     width: 20vw;
-    /* Set a proportional width for responsiveness */
     height: 200px;
-    /* Set a fixed height */
     object-fit: cover;
     margin-right: 30px;
-    /* Adjust margin-right for spacing */
     border-radius: inherit;
     box-shadow: 0 30px 20px rgb(0 0 0 / 8%);
 }
 
 .book-card h1 {
     font-size: 24px;
-    /* Adjust font size for title */
     font-weight: 400;
     margin-top: 0;
     margin-bottom: 10px;
@@ -64,11 +54,9 @@
 
 .book-card p {
     font-size: 14px;
-    /* Adjust font size for paragraphs */
     font-weight: 400;
     margin-bottom: 20px;
     opacity: 0.7;
-    /* Slightly reduce opacity */
     color: black;
 }
 
@@ -111,11 +99,9 @@ select {
 
     .book-card {
         flex-direction: column;
-        /* Stack content vertically on small screens */
         margin: 0 20px;
         padding: 20px;
         width: 90vw;
-        /* Adjust width for smaller screens */
         text-align: center;
     }
 

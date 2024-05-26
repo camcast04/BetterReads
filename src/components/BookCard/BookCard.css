@@ -12,7 +12,7 @@
   width: 50vw;
   max-width: 400px;
   padding: 20px;
-  background: #fdfcf7;
+  background:#f8f7ef;
   border-radius: 16px;
   overflow: hidden;
   transition: transform 0.3s ease-in-out;
@@ -55,7 +55,7 @@
   font-weight: 400;
   margin-bottom: 20px;
   opacity: 0.5;
-  color: #fdfcfd;
+  color: black;
 }
 
 .book-card button {

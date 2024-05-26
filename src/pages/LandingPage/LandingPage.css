@@ -52,7 +52,7 @@
   padding: 2rem;
   padding-top: 0;
   border-radius: 0 0 15px 15px;
-  flex-grow: 1; /* Ensure it fills the whole page */
+  flex-grow: 1; 
 }
 
 .intro-section {

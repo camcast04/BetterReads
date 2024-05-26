@@ -28,28 +28,52 @@ export default function App() {
   return (
     <main className="App">
       {user ? (
-        <>
-          <div className="content">
-            <NavBar user={user} setUser={setUser} />
-            <SidePanel />
-            <div className="main-content">
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/profile" element={<ProfilePage user={user} />} />
-                <Route
-                  path="/book/:bookId"
-                  element={<BookDetailsPage user={user} />}
-                />
-                <Route path="/booklists" element={<BookListsPage />} />
-                <Route
-                  path="/lists/:listName"
-                  element={<BookListDetailsPage />}
-                />
-                <Route path="/search" element={<BookSearch />} />
-              </Routes>
-            </div>
-          </div>
-        </>
+                <>
+                <div className="content">
+                  <NavBar user={user} setUser={setUser} />
+                  <SidePanel />
+                  <div className="main-content">
+                    <div className="inner-content">
+                      <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/profile" element={<ProfilePage user={user} />} />
+                        <Route
+                          path="/book/:bookId"
+                          element={<BookDetailsPage user={user} />}
+                        />
+                        <Route path="/booklists" element={<BookListsPage />} />
+                        <Route
+                          path="/lists/:listName"
+                          element={<BookListDetailsPage />}
+                        />
+                        <Route path="/search" element={<BookSearch />} />
+                      </Routes>
+                    </div>
+                  </div>
+                </div>
+              </>
+        // <>
+        //   <div className="content">
+        //     <NavBar user={user} setUser={setUser} />
+        //     <SidePanel />
+        //     <div className="main-content">
+        //       <Routes>
+        //         <Route path="/" element={<HomePage />} />
+        //         <Route path="/profile" element={<ProfilePage user={user} />} />
+        //         <Route
+        //           path="/book/:bookId"
+        //           element={<BookDetailsPage user={user} />}
+        //         />
+        //         <Route path="/booklists" element={<BookListsPage />} />
+        //         <Route
+        //           path="/lists/:listName"
+        //           element={<BookListDetailsPage />}
+        //         />
+        //         <Route path="/search" element={<BookSearch />} />
+        //       </Routes>
+        //     </div>
+        //   </div>
+        // </>
       ) : (
         <Routes>
           <Route path="/" element={<LandingPage setUser={handleUserSet} />} />
