@@ -1,4 +1,4 @@
-//better-reads/src/components/LoginForm/LoginForm.jsx
+//betterreads/src/components/loginform/loginform.jsx
 
 import { useState } from 'react';
 import * as usersService from '../../utilities/users-service';

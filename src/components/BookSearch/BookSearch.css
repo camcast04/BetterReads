@@ -1,0 +1,45 @@
+/* betterreads/src/components/BookSearch/Booksearch.css **/
+
+.book-search-container {
+  padding: 2rem;
+  text-align: center;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  width: 300px;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.search-bar button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #02458e;
+  color: white;
+  cursor: pointer;
+}
+
+.book-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 10vh;
+}
+
+.book-card {
+  flex: 0 1 calc(50% - 16px);
+  margin: 8px;
+}
+

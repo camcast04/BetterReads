@@ -1,4 +1,4 @@
-// better-reads/src/index.js
+//betterreads/src/index.js **
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -9,7 +9,8 @@ import App from './pages/App/App';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Router><App /></Router>
+    <Router>
+      <App />
+    </Router>
   </React.StrictMode>
 );
-

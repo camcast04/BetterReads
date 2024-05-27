@@ -1,4 +1,4 @@
-// better-reads/src/components/NavBar/NavBar.jsx
+//betterreads/routes/auth.js
 
 import { Link, useNavigate } from 'react-router-dom';
 import * as userService from '../../utilities/users-service';
@@ -10,20 +10,25 @@ export default function NavBar({ user, setUser }) {
   function handleLogOut() {
     userService.logOut();
     setUser(null);
-    navigate('/'); //landing page if logged out
+    navigate('/');
   }
 
   function handleLogoClick() {
     if (user) {
-      navigate('/'); //homepage
+      navigate('/');
     } else {
-      navigate('/'); //landing page
+      navigate('/');
     }
   }
 
   return (
     <nav className="navbar">
-      <img src="/images/Logo.png" alt="Logo" onClick={handleLogoClick} className="logo" />
+      <img
+        src="/images/Logo.png"
+        alt="Logo"
+        onClick={handleLogoClick}
+        className="logo"
+      />
       <div className="nav-links">
         <Link to="/books">My Books</Link>
         <Link to="/profile">Profile</Link>
@@ -36,4 +41,3 @@ export default function NavBar({ user, setUser }) {
     </nav>
   );
 }
-

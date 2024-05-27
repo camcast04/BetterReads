@@ -1,17 +1,21 @@
-/* better-reads/src/components/SidePanel/SidePanel.css */
+/* betterreads/src/components/SidePanel/SidePanel.css **/
+
 
 .side-panel {
   position: fixed;
-  top: 7rem; 
-  left: .7rem;
-  width: 200px;
-  height: calc(100% - 80px); 
+  top: 10vh; 
+  left: 3%;
+  max-width: 200px; 
+  height: 87vh;
+  margin-right: 100px;
   background: #fdfcf7;
-  box-shadow: 0 4px 5px 1px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 2px;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 4rem;
+  font-family: 'Roboto', sans-serif;
+  border-radius: 0 0 15px 15px;
 }
 
 .side-panel a {

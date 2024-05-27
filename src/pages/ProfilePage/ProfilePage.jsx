@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+// betterreads/src/pages/ProfilePage/ProfilePage.jsx **
+
+import React, { useState, useEffect } from 'react';
 import './ProfilePage.css';
 import BookCard from '../../components/BookCard/BookCard';
 import Modal from '../../components/Modal/Modal';
 import * as usersService from '../../utilities/users-service';
+import { avatarPaths } from '../../constants/avatarPaths';
 
 export default function ProfilePage({ user }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -10,6 +13,21 @@ export default function ProfilePage({ user }) {
   const [email, setEmail] = useState(user.email);
   const [avatar, setAvatar] = useState(user.avatar || '');
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const updatedUser = await usersService.getUser();
+        setName(updatedUser.name);
+        setEmail(updatedUser.email);
+        setAvatar(updatedUser.avatar);
+      } catch (err) {
+        setError('Failed to fetch user details');
+      }
+    }
+
+    fetchUser();
+  }, []);
 
   const toggleEditModal = () => {
     setIsEditModalOpen(!isEditModalOpen);
@@ -25,24 +43,29 @@ export default function ProfilePage({ user }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setName((prevName) => name);
-      setEmail((prevEmail) => email);
-      setAvatar((prevAvatar) => avatar);
-
-      await usersService.updateUser({ name, email, avatar });
+      const updatedUser = await usersService.updateUser({
+        name,
+        email,
+        avatar,
+      });
+      setName(updatedUser.user.name);
+      setEmail(updatedUser.user.email);
+      setAvatar(updatedUser.user.avatar);
       toggleEditModal();
+      setError(null);
     } catch (err) {
       setError('Failed to update user details');
     }
   };
 
   return (
-    <div className="container">
+    <div style={{ marginTop: '100px' }} className="container">
       <div className="user-info-box">
         <img
           style={{ borderRadius: '50%' }}
-          src={avatar || 'https://via.placeholder.com/150'}
-          alt={`${user.name}'s avatar`}
+          src={avatar || 'https://placehold.co/100x120'}
+          alt={`${name}'s avatar`}
+          className="avatar"
         />
         <h1>{name}</h1>
         <div className="user-subdetails">
@@ -91,12 +114,13 @@ export default function ProfilePage({ user }) {
             onChange={handleChange}
           />
           <label>Avatar:</label>
-          <input
-            type="text"
-            name="avatar"
-            value={avatar}
-            onChange={handleChange}
-          />
+          <select name="avatar" value={avatar} onChange={handleChange}>
+            {avatarPaths.map((path, index) => (
+              <option key={index} value={path}>
+                {index + 1}
+              </option>
+            ))}
+          </select>
           <button type="submit">Save Changes</button>
         </form>
       </Modal>

@@ -1,12 +1,23 @@
-/* betterreads/src/BookCard/BookCard.css */
+/* betterreads/src/components/BookCard/BookCard.css **/
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 .book-card {
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  width: 50vw;
+  max-width: 400px;
+  padding: 20px;
+  background:#f8f7ef;
+  border-radius: 16px;
   overflow: hidden;
   transition: transform 0.3s ease-in-out;
-  max-width: 150px;
+  margin: 10px;
+  color: #fdfcfd;
 }
 
 .book-card:hover {
@@ -16,51 +27,85 @@
 .book-card-content {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  text-align: center;
-}
-
-.book-card h1 {
-  margin: 0;
-  font-size: 1rem;
-  color: #333;
+  justify-content: space-between;
+  padding: 0 20px;
 }
 
 .book-card img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px 8px 0 0;
+  max-width: 150px;
+  width: 20vw;
+  height: 200px;
+  object-fit: cover;
+  margin-left: -20px;
+  margin-right: 20px;
+  border-radius: inherit;
+  box-shadow: 0 30px 20px rgb(0 0 0 / 8%);
+}
+
+.book-card h1 {
+  font-size: 20px;
+  font-weight: 400;
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.book-card p {
+  font-size: 12px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  opacity: 0.5;
+  color: black;
 }
 
 .book-card button {
-  background-color: #0e3a52;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  padding: 5px 10px;
-  font-size: 0.75rem;
+  border: 1px solid black;
+  background: transparent;
+  color: black;
+  font-family: inherit;
+  padding: 10px 16px;
+  font-size: 14px;
+  border-radius: 30px;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin-top: 5px;
-  width: 80%;
 }
 
 .book-card button:hover {
-  background-color: #02458e;
+  background-color: black;
+  color: white;
+  border: 1px solid white;
 }
 
 @media (max-width: 600px) {
   .book-card {
-    max-width: 120px;
+    margin: 0 20px;
+    padding: 20px;
+    width: 80vw;
+    text-align: center;
+    flex-direction: column;
   }
 
   .book-card h1 {
-    font-size: 0.875rem;
+    font-size: 20px;
   }
 
-  .book-card button {
-    padding: 4px 8px;
-    font-size: 0.625rem;
+  .book-card img {
+    margin: -50px 0 20px 0;
+    width: 80vw;
+    max-width: 500px;
+    height: 200px;
+  }
+
+  .book-card p {
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 440px) {
+  .book-card img {
+    height: 30vw;
+    width: 30vw;
+    border-radius: 50%;
+    margin: -70px 0 20px 0;
   }
 }

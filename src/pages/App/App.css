@@ -1,24 +1,45 @@
-/* betterreads/src/App/App.css */
+/* betterreads/src/pages/App/App.css **/
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 .App {
   text-align: center;
+  font-family: 'Roboto', sans-serif;
 }
 
-h1, h2 {
-  font-family: "Noto Serif", serif;
+.content {
+  display: flex;
+  margin-top: .5rem;
+  position: relative;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.main-content {
+  margin-top: 7vh;
+  padding-top: 2vh;
+  padding-left: 12vh;
+  padding-right: 3vh;
+  height: 87vh;
+  overflow: hidden;
+  margin-left: 20vh;
+  margin-right: 2%;
+  background: #fdfcf7;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 15px 15px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.main-content .inner-content {
+  height: 100%;
+  overflow-y: auto; 
+  padding-right: 1rem; 
+}
+
+h1,
+h2 {
+  font-family: 'Noto Serif', serif;
+}
+
+.App-link {
+  color: #61dafb;
 }
 
 .App-header {
@@ -32,26 +53,54 @@ h1, h2 {
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+
+/* Large Devices (desktops, 1200px and up) */
+@media (max-width: 1200px) {
+  .main-content {
+    margin-left: 15vh; 
+    margin-right: 3%;
+    padding-left: 10vh;
+    padding-right: 2vh;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+/* Medium Devices (tablets, 768px and up) */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 10vh; 
+    margin-right: 3%;
+    padding-left: 8vh;
+    padding-right: 1vh;
   }
 }
 
-.content {
-  display: flex;
-  margin-top: .3rem; 
+/* Small Devices (landscape phones, 576px and up) */
+@media (max-width: 576px) {
+  .main-content {
+    margin-left: 5vh; 
+    margin-right: 3%;
+    padding-left: 6vh;
+    padding-right: 1vh;
+    width: auto; 
+  }
+
+  .main-content .inner-content {
+    padding-right: 0.5rem; 
+  }
 }
 
-.main-content {
-  flex: 1;
-  margin-left: 200px;
-}
+/* Extra Small Devices (portrait phones, less than 576px) */
+@media (max-width: 400px) {
+  .main-content {
+    margin-left: 2vh; 
+    margin-right: 2%;
+    padding-left: 4vh;
+    padding-right: 1vh;
+    width: auto; 
+  }
 
+  .main-content .inner-content {
+    padding-right: 0.5rem; 
+  }
+}

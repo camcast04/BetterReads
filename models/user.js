@@ -1,7 +1,8 @@
+//betterreads/models/user.js
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
-
 const SALT_ROUNDS = 6;
 
 const userSchema = new Schema(
@@ -15,7 +16,7 @@ const userSchema = new Schema(
       required: true,
     },
     password: {
-      type: String, 
+      type: String,
       required: true,
     },
     avatar: { type: String },
@@ -33,13 +34,10 @@ const userSchema = new Schema(
   }
 );
 
-
 userSchema.pre('save', async function (next) {
-  // 'this' is the user document
   if (!this.isModified('password')) return next();
-  // Replace the password with the computed hash
   this.password = await bcrypt.hash(this.password, SALT_ROUNDS);
-  next(); // Ensure you call next() after hashing the password
+  next();
 });
 
 module.exports = mongoose.model('User', userSchema);

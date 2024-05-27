@@ -1,8 +1,9 @@
-// better-reads/src/components/BookSearch/BookSearch.jsx
+// betterreads/src/components/BookSearch/BookSearch.jsx *
 
 import React, { useState } from 'react';
 import axios from 'axios';
 import BookCard from '../BookCard/BookCard';
+import './BookSearch.css';
 
 const BookSearch = () => {
     const [query, setQuery] = useState('');
@@ -18,17 +19,17 @@ const BookSearch = () => {
 
             const response = await axios.get(`/api/books?q=${query}`, {
                 headers: {
-                    Authorization: `Bearer ${token}`
-                }
+                    Authorization: `Bearer ${token}`,
+                },
             });
 
             if (response.data.items) {
-                const bookData = response.data.items.map(book => ({
+                const bookData = response.data.items.map((book) => ({
                     id: book.id,
                     title: book.volumeInfo.title,
                     authors: book.volumeInfo.authors || ['Unknown Author'],
                     coverImage: book.volumeInfo.imageLinks?.thumbnail,
-                    description: book.volumeInfo.description
+                    description: book.volumeInfo.description,
                 }));
                 setBooks(bookData);
             } else {
@@ -40,23 +41,23 @@ const BookSearch = () => {
     };
 
     return (
-        <div>
+        <div className="book-search-container">
             <h1>Book Search</h1>
-            <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search for books"
-            />
-            <button onClick={searchBooks}>Search</button>
+            <div className="search-bar">
+                <input
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search for books"
+                />
+                <button onClick={searchBooks}>Search</button>
+            </div>
             {error && <p>Error: {error}</p>}
-            <div>
+            <div className="book-cards-container">
                 {books && books.length > 0 ? (
-                    books.map((book) => (
-                        <BookCard key={book.id} book={book} />
-                    ))
+                    books.map((book) => <BookCard key={book.id} book={book} />)
                 ) : (
-                    <p>No books found</p>
+                    <p>In May, try searching for Asian or Pacific Islander Authors</p>
                 )}
             </div>
         </div>
@@ -64,7 +65,3 @@ const BookSearch = () => {
 };
 
 export default BookSearch;
-
-
-
-

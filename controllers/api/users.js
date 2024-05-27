@@ -1,4 +1,4 @@
-// better-reads/controllers/api/users.js
+// betterreads/controllers/api/users.js
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -12,23 +12,29 @@ module.exports = {
   login,
   createList,
   addBookToList,
+  getLists,
   updateUser,
+  getUser,
+  getListByName,
+  deleteBookFromList,
 };
 
 async function create(req, res) {
   try {
     const user = await User.create(req.body);
 
-    const defaultLists = ['Read', 'To Read', 'DNF', 'Favorites'].map(listName => ({
-      listName,
-      user: user._id,
-      books: [],
-      is_default: true
-    }));
+    const defaultLists = ['Read', 'To Read', 'DNF', 'Favorites'].map(
+      (listName) => ({
+        listName,
+        user: user._id,
+        books: [],
+        is_default: true,
+      })
+    );
 
     const createdLists = await List.insertMany(defaultLists);
 
-    user.lists = createdLists.map(list => list._id);
+    user.lists = createdLists.map((list) => list._id);
     await user.save();
 
     const token = createJWT(user);
@@ -38,7 +44,6 @@ async function create(req, res) {
     res.status(400).json({ message: err.message });
   }
 }
-
 
 async function login(req, res) {
   try {
@@ -75,10 +80,7 @@ async function createList(req, res) {
     user.lists.push(newList._id);
     await user.save();
 
-    console.log('New list created:', newList);
-    console.log('User updated with new list:', user);
-
-    res.json(user);
+    res.json(newList);
   } catch (err) {
     console.error('Error creating list:', err);
     res.status(400).json({ message: err.message });
@@ -86,26 +88,35 @@ async function createList(req, res) {
 }
 
 async function addBookToList(req, res) {
+  console.log('addBookToList called');
   try {
+    console.log(`User ID from token: ${req.user._id}`);
+
     const user = await User.findById(req.user._id).populate('lists').exec();
     if (!user) throw new Error('User not found');
+    console.log('User found:', JSON.stringify(user, null, 2));
 
     const list = await List.findOne({
       _id: { $in: user.lists },
       listName: req.params.listName,
-    });
+    }).populate('books');
     if (!list) throw new Error('List not found');
+    console.log('List found:', JSON.stringify(list, null, 2));
 
     const bookId = req.body.bookId;
+    console.log(`Book ID to add: ${bookId}`);
+
     const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
     const url = `https://www.googleapis.com/books/v1/volumes/${bookId}?key=${apiKey}`;
+    console.log('Fetching book data from Google Books API with URL:', url);
 
     const response = await axios.get(url);
     const bookData = response.data;
+    console.log('Book data fetched:', JSON.stringify(bookData, null, 2));
 
     let book = await Book.findOne({ googleBooksId: bookId });
-
     if (!book) {
+      console.log('Book not found in database. Creating new book entry.');
       book = new Book({
         googleBooksId: bookId,
         title: bookData.volumeInfo.title,
@@ -116,16 +127,141 @@ async function addBookToList(req, res) {
         coverImage: bookData.volumeInfo.imageLinks?.thumbnail,
       });
       await book.save();
+      console.log('New book created and saved:', JSON.stringify(book, null, 2));
+    } else {
+      console.log(
+        'Book already exists in database:',
+        JSON.stringify(book, null, 2)
+      );
     }
 
-    if (!list.books.includes(book._id)) {
+    const isBookInList = list.books.some((b) => b.equals(book._id));
+    console.log(`Is book already in list: ${isBookInList}`);
+    if (!isBookInList) {
+      console.log(`Adding book ${book._id} to list ${list._id}`);
       list.books.push(book._id);
       await list.save();
+      console.log(
+        'List saved after adding book:',
+        JSON.stringify(list, null, 2)
+      );
+    } else {
+      console.log('Book already in list, not adding again.');
     }
+
+    console.log(`Populating books for list ${list._id} after save...`);
+    const updatedList = await List.findById(list._id).populate('books').exec();
+    console.log(
+      'Updated list after populating books:',
+      JSON.stringify(updatedList, null, 2)
+    );
+
+    res.json(updatedList);
+  } catch (err) {
+    console.error('Error adding book to list:', err);
+    res.status(400).json({ message: err.message });
+  }
+}
+
+// async function getLists(req, res) {
+//   try {
+//     const user = await User.findById(req.user._id).exec();
+//     if (!user) throw new Error(‘User not found’);
+//     const lists = await List.find({ user: user._id })
+//       .populate({
+//         path: ‘books’,
+//         select: ‘googleBooksId title authors publisher coverImage’,
+//       })
+//       .exec();
+//     res.json(lists);
+//   } catch (err) {
+//     console.error(‘Error fetching all lists:’, err);
+//     res.status(400).json({ message: err.message });
+//   }
+// }
+
+async function getLists(req, res) {
+  try {
+    const user = await User.findById(req.user._id).exec();
+    if (!user) throw new Error('User not found');
+
+    const lists = await List.find({ user: user._id })
+      .populate({
+        path: 'books',
+        select: 'googleBooksId title authors publisher coverImage',
+      })
+      .exec();
+
+    res.json(lists);
+  } catch (err) {
+    console.error('Error fetching all lists:', err);
+    res.status(400).json({ message: err.message });
+  }
+}
+
+async function getListByName(req, res) {
+  try {
+    const user = await User.findById(req.user._id)
+      .populate({
+        path: 'lists',
+        populate: { path: 'books' },
+      })
+      .exec();
+    if (!user) throw new Error('User not found');
+
+    const list = user.lists.find(
+      (list) => list.listName === req.params.listName
+    );
+
+    if (!list) throw new Error('List not found');
 
     res.json(list);
   } catch (err) {
-    console.error('Error adding book to list:', err);
+    console.error('Error fetching list by name:', err);
+    res.status(400).json({ message: err.message });
+  }
+}
+
+async function deleteBookFromList(req, res) {
+  console.log('deleteBookFromList called');
+  try {
+    const user = await User.findById(req.user._id).populate('lists').exec();
+    if (!user) throw new Error('User not found');
+    console.log('User found:', JSON.stringify(user, null, 2));
+
+    const list = await List.findOne({
+      _id: { $in: user.lists },
+      listName: req.params.listName,
+    }).populate('books');
+    if (!list) throw new Error('List not found');
+    console.log('List found:', JSON.stringify(list, null, 2));
+
+    const bookId = req.params.bookId;
+    console.log(`Book ID to delete: ${bookId}`);
+
+    const bookIndex = list.books.findIndex((b) => b.equals(bookId));
+    if (bookIndex === -1) throw new Error('Book not found in list');
+    list.books.splice(bookIndex, 1);
+    await list.save();
+    console.log(
+      'List saved after removing book:',
+      JSON.stringify(list, null, 2)
+    );
+
+    res.json(list);
+  } catch (err) {
+    console.error('Error removing book from list:', err);
+    res.status(400).json({ message: err.message });
+  }
+}
+
+async function getUser(req, res) {
+  try {
+    const user = await User.findById(req.params.userId);
+    if (!user) throw new Error('User not found');
+    res.json(user);
+  } catch (err) {
+    console.error('Error fetching user:', err);
     res.status(400).json({ message: err.message });
   }
 }
@@ -133,18 +269,16 @@ async function addBookToList(req, res) {
 async function updateUser(req, res) {
   try {
     const user = await User.findById(req.user._id);
+    if (!user) throw new Error('User not found');
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.avatar = req.body.avatar || user.avatar;
 
-    user.name = req.body.name;
-    user.email = req.body.email;
-    user.avatar = req.body.avatar;
     await user.save();
 
-
-    res.json(user);
+    const token = createJWT(user);
+    res.json({ user, token });
   } catch (err) {
     console.error('Error updating user:', err);
     res.status(400).json({ message: err.message });
